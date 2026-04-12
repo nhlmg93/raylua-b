@@ -773,253 +773,11 @@ local ffi = require("ffi")
 ---@field MAGENTA Color Magenta (255, 0, 255, 255)
 ---@field RAYWHITE Color Ray white (245, 245, 245, 255)
 ---
---- Raymath: utility functions
+
 ---
----@field clamp fun(value: number, min: number, max: number): number Clamp float value
----@field lerp fun(start: number, endVal: number, amount: number): number Calculate linear interpolation between two floats
----@field normalize fun(value: number, start: number, endVal: number): number Normalize input value within input range
----@field remap fun(value: number, inputStart: number, inputEnd: number, outputStart: number, outputEnd: number): number Remap input value within input range to output range
----@field wrap fun(value: number, min: number, max: number): number Wrap input value from min to max
----@field float_equals fun(x: number, y: number): integer Check whether two given floats are almost equal
----
---- Raymath: Vector2 functions
----
----@field vector2_zero fun(): Vector2 Vector with components value 0.0f
----@field vector2_one fun(): Vector2 Vector with components value 1.0f
----@field vector2_add fun(v1: Vector2, v2: Vector2): Vector2 Add two vectors (v1 + v2)
----@field vector2_add_value fun(v: Vector2, add: number): Vector2 Add vector and float value
----@field vector2_subtract fun(v1: Vector2, v2: Vector2): Vector2 Subtract two vectors (v1 - v2)
----@field vector2_subtract_value fun(v: Vector2, sub: number): Vector2 Subtract vector by float value
----@field vector2_length fun(v: Vector2): number Calculate vector length
----@field vector2_length_sqr fun(v: Vector2): number Calculate vector square length
----@field vector_2d_ot_product fun(v1: Vector2, v2: Vector2): number Calculate two vectors dot product
----@field vector_2d_istance fun(v1: Vector2, v2: Vector2): number Calculate distance between two vectors
----@field vector_2d_istance_sqr fun(v1: Vector2, v2: Vector2): number Calculate square distance between two vectors
----@field vector2_angle fun(v1: Vector2, v2: Vector2): number Calculate angle between two vectors
----@field vector2_line_angle fun(start: Vector2, endPos: Vector2): number Calculate angle defined by a two vectors line
----@field vector2_scale fun(v: Vector2, scale: number): Vector2 Scale vector (multiply by value)
----@field vector2_multiply fun(v1: Vector2, v2: Vector2): Vector2 Multiply vector by vector
----@field vector2_negate fun(v: Vector2): Vector2 Negate vector
----@field vector_2d_ivide fun(v1: Vector2, v2: Vector2): Vector2 Divide vector by vector
----@field vector2_normalize fun(v: Vector2): Vector2 Normalize provided vector
----@field vector2_transform fun(v: Vector2, mat: Matrix): Vector2 Transforms a Vector2 by a given Matrix
----@field vector2_lerp fun(v1: Vector2, v2: Vector2, amount: number): Vector2 Calculate linear interpolation between two vectors
----@field vector2_reflect fun(v: Vector2, normal: Vector2): Vector2 Calculate reflected vector to normal
----@field vector2_min fun(v1: Vector2, v2: Vector2): Vector2 Get min value for each pair of components
----@field vector2_max fun(v1: Vector2, v2: Vector2): Vector2 Get max value for each pair of components
----@field vector2_rotate fun(v: Vector2, angle: number): Vector2 Rotate vector by angle
----@field vector2_move_towards fun(v: Vector2, target: Vector2, maxDistance: number): Vector2 Move vector towards target
----@field vector2_invert fun(v: Vector2): Vector2 Invert the given vector
----@field vector2_clamp fun(v: Vector2, min: Vector2, max: Vector2): Vector2 Clamp the components of the vector between min and max values
----@field vector2_clamp_value fun(v: Vector2, min: number, max: number): Vector2 Clamp the magnitude of the vector between two values
----@field vector2_equals fun(p: Vector2, q: Vector2): integer Check whether two given vectors are almost equal
----@field vector2_refract fun(v: Vector2, n: Vector2, r: number): Vector2 Compute the direction of a refracted ray
----@field vector2_cross_product fun(v1: Vector2, v2: Vector2): number Calculate two vectors cross product (2D, returns scalar)
----
---- Raymath: Vector3 functions
----
----@field vector3_zero fun(): Vector3 Vector with components value 0.0f
----@field vector3_one fun(): Vector3 Vector with components value 1.0f
----@field vector3_add fun(v1: Vector3, v2: Vector3): Vector3 Add two vectors
----@field vector3_add_value fun(v: Vector3, add: number): Vector3 Add vector and float value
----@field vector3_subtract fun(v1: Vector3, v2: Vector3): Vector3 Subtract two vectors
----@field vector3_subtract_value fun(v: Vector3, sub: number): Vector3 Subtract vector by float value
----@field vector3_scale fun(v: Vector3, scalar: number): Vector3 Multiply vector by scalar
----@field vector3_multiply fun(v1: Vector3, v2: Vector3): Vector3 Multiply vector by vector
----@field vector3_cross_product fun(v1: Vector3, v2: Vector3): Vector3 Calculate two vectors cross product
----@field vector3_perpendicular fun(v: Vector3): Vector3 Calculate one vector perpendicular vector
----@field vector3_length fun(v: Vector3): number Calculate vector length
----@field vector3_length_sqr fun(v: Vector3): number Calculate vector square length
----@field vector_3d_ot_product fun(v1: Vector3, v2: Vector3): number Calculate two vectors dot product
----@field vector_3d_istance fun(v1: Vector3, v2: Vector3): number Calculate distance between two vectors
----@field vector_3d_istance_sqr fun(v1: Vector3, v2: Vector3): number Calculate square distance between two vectors
----@field vector3_angle fun(v1: Vector3, v2: Vector3): number Calculate angle between two vectors
----@field vector3_negate fun(v: Vector3): Vector3 Negate provided vector (invert direction)
----@field vector_3d_ivide fun(v1: Vector3, v2: Vector3): Vector3 Divide vector by vector
----@field vector3_normalize fun(v: Vector3): Vector3 Normalize provided vector
----@field vector3_project fun(v1: Vector3, v2: Vector3): Vector3 Calculate the projection of the vector v1 on to v2
----@field vector3_reject fun(v1: Vector3, v2: Vector3): Vector3 Calculate the rejection of the vector v1 on to v2
----@field vector3_ortho_normalize fun(v1: Vector3, v2: Vector3) Orthonormalize provided vectors (makes vectors normalized and orthogonal to each other)
----@field vector3_transform fun(v: Vector3, mat: Matrix): Vector3 Transforms a Vector3 by a given Matrix
----@field vector3_rotate_by_quaternion fun(v: Vector3, q: Vector4): Vector3 Transform a vector by quaternion rotation
----@field vector3_rotate_by_axis_angle fun(v: Vector3, axis: Vector3, angle: number): Vector3 Rotates a vector around an axis
----@field vector3_move_towards fun(v: Vector3, target: Vector3, maxDistance: number): Vector3 Move vector towards target
----@field vector3_lerp fun(v1: Vector3, v2: Vector3, amount: number): Vector3 Calculate linear interpolation between two vectors
----@field vector3_cubic_hermite fun(v1: Vector3, tangent1: Vector3, v2: Vector3, tangent2: Vector3, amount: number): Vector3 Calculate cubic hermite interpolation between two vectors
----@field vector3_reflect fun(v: Vector3, normal: Vector3): Vector3 Calculate reflected vector to normal
----@field vector3_min fun(v1: Vector3, v2: Vector3): Vector3 Get min value for each pair of components
----@field vector3_max fun(v1: Vector3, v2: Vector3): Vector3 Get max value for each pair of components
----@field vector3_barycenter fun(p: Vector3, a: Vector3, b: Vector3, c: Vector3): Vector3 Compute barycenter coordinates (u, v, w) for point p with respect to triangle (a, b, c)
----@field vector3_unproject fun(source: Vector3, projection: Matrix, view: Matrix): Vector3 Projects a Vector3 from screen space into object space
----@field vector3_invert fun(v: Vector3): Vector3 Invert the given vector
----@field vector3_clamp fun(v: Vector3, min: Vector3, max: Vector3): Vector3 Clamp the components of the vector between min and max values
----@field vector3_clamp_value fun(v: Vector3, min: number, max: number): Vector3 Clamp the magnitude of the vector between two min and max values
----@field vector3_equals fun(p: Vector3, q: Vector3): integer Check whether two given vectors are almost equal
----@field vector3_refract fun(v: Vector3, n: Vector3, r: number): Vector3 Compute the direction of a refracted ray
----@field vector3_to_float_v fun(v: Vector3): float3 Get Vector3 as float array
----
---- Raymath: Vector4 functions
----
----@field vector4_zero fun(): Vector4 Vector with components value 0.0f
----@field vector4_one fun(): Vector4 Vector with components value 1.0f
----@field vector4_add fun(v1: Vector4, v2: Vector4): Vector4 Add two vectors
----@field vector4_add_value fun(v: Vector4, add: number): Vector4 Add vector and float value
----@field vector4_subtract fun(v1: Vector4, v2: Vector4): Vector4 Subtract two vectors
----@field vector4_subtract_value fun(v: Vector4, sub: number): Vector4 Subtract vector by float value
----@field vector4_length fun(v: Vector4): number Calculate vector length
----@field vector4_length_sqr fun(v: Vector4): number Calculate vector square length
----@field vector4_dot_product fun(v1: Vector4, v2: Vector4): number Calculate two vectors dot product
----@field vector4_distance fun(v1: Vector4, v2: Vector4): number Calculate distance between two vectors
----@field vector4_distance_sqr fun(v1: Vector4, v2: Vector4): number Calculate square distance between two vectors
----@field vector4_scale fun(v: Vector4, scale: number): Vector4 Scale vector by float value
----@field vector4_multiply fun(v1: Vector4, v2: Vector4): Vector4 Multiply vector by vector
----@field vector4_negate fun(v: Vector4): Vector4 Negate vector
----@field vector4_divide fun(v1: Vector4, v2: Vector4): Vector4 Divide vector by vector
----@field vector4_normalize fun(v: Vector4): Vector4 Normalize provided vector
----@field vector4_min fun(v1: Vector4, v2: Vector4): Vector4 Get min value for each pair of components
----@field vector4_max fun(v1: Vector4, v2: Vector4): Vector4 Get max value for each pair of components
----@field vector4_lerp fun(v1: Vector4, v2: Vector4, amount: number): Vector4 Calculate linear interpolation between two vectors
----@field vector4_move_towards fun(v: Vector4, target: Vector4, maxDistance: number): Vector4 Move vector towards target
----@field vector4_invert fun(v: Vector4): Vector4 Invert the given vector
----@field vector4_equals fun(p: Vector4, q: Vector4): integer Check whether two given vectors are almost equal
----
---- Raymath: Matrix functions
----
----@field matrix_determinant fun(mat: Matrix): number Compute matrix determinant
----@field matrix_trace fun(mat: Matrix): number Get the trace of the matrix (sum of the values along the diagonal)
----@field matrix_transpose fun(mat: Matrix): Matrix Transposes provided matrix
----@field matrix_invert fun(mat: Matrix): Matrix Invert provided matrix
----@field matrix_identity fun(): Matrix Get identity matrix
----@field matrix_add fun(left: Matrix, right: Matrix): Matrix Add two matrices
----@field matrix_subtract fun(left: Matrix, right: Matrix): Matrix Subtract two matrices (left - right)
----@field matrix_multiply fun(left: Matrix, right: Matrix): Matrix Get two matrix multiplication
----@field matrix_translate fun(x: number, y: number, z: number): Matrix Get translation matrix
----@field matrix_rotate fun(axis: Vector3, angle: number): Matrix Create rotation matrix from axis and angle
----@field matrix_rotate_x fun(angle: number): Matrix Get x-rotation matrix
----@field matrix_rotate_y fun(angle: number): Matrix Get y-rotation matrix
----@field matrix_rotate_z fun(angle: number): Matrix Get z-rotation matrix
----@field matrix_rotate_xyz fun(angle: Vector3): Matrix Get xyz-rotation matrix
----@field matrix_rotate_zyx fun(angle: Vector3): Matrix Get zyx-rotation matrix
----@field matrix_scale fun(x: number, y: number, z: number): Matrix Get scaling matrix
----@field matrix_frustum fun(left: number, right: number, bottom: number, top: number, nearPlane: number, farPlane: number): Matrix Get perspective projection matrix
----@field matrix_perspective fun(fovY: number, aspect: number, nearPlane: number, farPlane: number): Matrix Get perspective projection matrix
----@field matrix_ortho fun(left: number, right: number, bottom: number, top: number, nearPlane: number, farPlane: number): Matrix Get orthographic projection matrix
----@field matrix_look_at fun(eye: Vector3, target: Vector3, up: Vector3): Matrix Get camera look-at matrix (view matrix)
----@field matrix_to_float_v fun(mat: Matrix): float16 Get matrix as float array
----@field matrix_multiply_value fun(left: Matrix, value: number): Matrix Multiply all matrix elements by a scalar value
----@field matrix_compose fun(translation: Vector3, rotation: Vector4, scale: Vector3): Matrix Compose a transformation matrix from translation, rotation, and scale
----@field matrix_decompose fun(mat: Matrix, translation: Vector3, rotation: Vector4, scale: Vector3) Decompose a transformation matrix into its components
----
---- Raymath: Quaternion functions
----
----@field quaternion_add fun(q1: Vector4, q2: Vector4): Vector4 Add two quaternions
----@field quaternion_add_value fun(q: Vector4, add: number): Vector4 Add quaternion and float value
----@field quaternion_subtract fun(q1: Vector4, q2: Vector4): Vector4 Subtract two quaternions
----@field quaternion_subtract_value fun(q: Vector4, sub: number): Vector4 Subtract quaternion and float value
----@field quaternion_identity fun(): Vector4 Get identity quaternion
----@field quaternion_length fun(q: Vector4): number Compute the length of a quaternion
----@field quaternion_normalize fun(q: Vector4): Vector4 Normalize provided quaternion
----@field quaternion_invert fun(q: Vector4): Vector4 Invert provided quaternion
----@field quaternion_multiply fun(q1: Vector4, q2: Vector4): Vector4 Calculate two quaternion multiplication
----@field quaternion_scale fun(q: Vector4, mul: number): Vector4 Scale quaternion by float value
----@field quaternion_divide fun(q1: Vector4, q2: Vector4): Vector4 Divide two quaternions
----@field quaternion_lerp fun(q1: Vector4, q2: Vector4, amount: number): Vector4 Calculate linear interpolation between two quaternions
----@field quaternion_nlerp fun(q1: Vector4, q2: Vector4, amount: number): Vector4 Calculate slerp-optimized interpolation between two quaternions
----@field quaternion_slerp fun(q1: Vector4, q2: Vector4, amount: number): Vector4 Calculates spherical linear interpolation between two quaternions
----@field quaternion_cubic_hermite_spline fun(q1: Vector4, outTangent1: Vector4, q2: Vector4, inTangent2: Vector4, t: number): Vector4 Calculate cubic hermite spline interpolation
----@field quaternion_from_vector3_to_vector3 fun(from: Vector3, to: Vector3): Vector4 Calculate quaternion based on the rotation from one vector to another
----@field quaternion_from_matrix fun(mat: Matrix): Vector4 Get a quaternion for a given rotation matrix
----@field quaternion_to_matrix fun(q: Vector4): Matrix Get a matrix for a given quaternion
----@field quaternion_from_axis_angle fun(axis: Vector3, angle: number): Vector4 Get rotation quaternion for an angle and axis
----@field quaternion_to_axis_angle fun(q: Vector4, outAxis: Vector3, outAngle: number[]) Get the rotation angle and axis for a given quaternion
----@field quaternion_from_euler fun(pitch: number, yaw: number, roll: number): Vector4 Get the quaternion equivalent to Euler angles
----@field quaternion_to_euler fun(q: Vector4): Vector3 Get the Euler angles equivalent to rotation quaternion
----@field quaternion_transform fun(q: Vector4, mat: Matrix): Vector4 Transform a quaternion given a transformation matrix
----@field quaternion_equals fun(p: Vector4, q: Vector4): integer Check whether two given quaternions are almost equal
----
---- FFI library handle (includes raylib + raymath functions)
+--- FFI library handle
 ---
 ---@field lib any Raw FFI library handle for raylib
----@field GetColor fun(hexValue: integer): Color Get Color structure from hexadecimal value
----@field Vector2Add fun(v1: Vector2, v2: Vector2): Vector2 Add two vectors (v1 + v2)
----@field Vector2AddValue fun(v: Vector2, add: number): Vector2 Add vector and float value
----@field Vector2Subtract fun(v1: Vector2, v2: Vector2): Vector2 Subtract two vectors (v1 - v2)
----@field Vector2SubtractValue fun(v: Vector2, sub: number): Vector2 Subtract vector by float value
----@field Vector2Multiply fun(v1: Vector2, v2: Vector2): Vector2 Multiply vector by vector
----@field Vector2Scale fun(v: Vector2, scale: number): Vector2 Scale vector (multiply by value)
----@field Vector2Divide fun(v1: Vector2, v2: Vector2): Vector2 Divide vector by vector
----@field Vector2Negate fun(v: Vector2): Vector2 Negate vector
----@field Vector2Invert fun(v: Vector2): Vector2 Invert the given vector
----@field Vector2Length fun(v: Vector2): number Calculate vector length
----@field Vector2Equals fun(p: Vector2, q: Vector2): integer Check whether two given vectors are almost equal
----@field Vector3Add fun(v1: Vector3, v2: Vector3): Vector3 Add two vectors
----@field Vector3AddValue fun(v: Vector3, add: number): Vector3 Add vector and float value
----@field Vector3Subtract fun(v1: Vector3, v2: Vector3): Vector3 Subtract two vectors
----@field Vector3SubtractValue fun(v: Vector3, sub: number): Vector3 Subtract vector by float value
----@field Vector3Multiply fun(v1: Vector3, v2: Vector3): Vector3 Multiply vector by vector
----@field Vector3Scale fun(v: Vector3, scalar: number): Vector3 Multiply vector by scalar
----@field Vector3Divide fun(v1: Vector3, v2: Vector3): Vector3 Divide vector by vector
----@field Vector3Negate fun(v: Vector3): Vector3 Negate provided vector
----@field Vector3Invert fun(v: Vector3): Vector3 Invert the given vector
----@field Vector3Length fun(v: Vector3): number Calculate vector length
----@field Vector3Equals fun(p: Vector3, q: Vector3): integer Check whether two given vectors are almost equal
----@field Vector4Add fun(v1: Vector4, v2: Vector4): Vector4 Add two vectors
----@field Vector4AddValue fun(v: Vector4, add: number): Vector4 Add vector and float value
----@field Vector4Subtract fun(v1: Vector4, v2: Vector4): Vector4 Subtract two vectors
----@field Vector4SubtractValue fun(v: Vector4, sub: number): Vector4 Subtract vector by float value
----@field Vector4Multiply fun(v1: Vector4, v2: Vector4): Vector4 Multiply vector by vector
----@field Vector4Scale fun(v: Vector4, scale: number): Vector4 Scale vector by float value
----@field Vector4Divide fun(v1: Vector4, v2: Vector4): Vector4 Divide vector by vector
----@field Vector4Negate fun(v: Vector4): Vector4 Negate vector
----@field Vector4Invert fun(v: Vector4): Vector4 Invert the given vector
----@field Vector4Length fun(v: Vector4): number Calculate vector length
----@field Vector4Equals fun(p: Vector4, q: Vector4): integer Check whether two given vectors are almost equal
----@field MatrixAdd fun(left: Matrix, right: Matrix): Matrix Add two matrices
----@field MatrixSubtract fun(left: Matrix, right: Matrix): Matrix Subtract two matrices
----@field MatrixMultiply fun(left: Matrix, right: Matrix): Matrix Get two matrix multiplication
----
---- Constructor functions
----
----@field color fun(r: number|string, g?: number, b?: number, a?: number): Color Create a Color from RGBA values, hex string, or hex number
----@field vector2 fun(x?: number, y?: number): Vector2 Create a Vector2
----@field vector3 fun(x?: number, y?: number, z?: number): Vector3 Create a Vector3
----@field vector4 fun(x?: number, y?: number, z?: number, w?: number): Vector4 Create a Vector4
----@field rectangle fun(x?: number, y?: number, width?: number, height?: number): Rectangle Create a Rectangle
----@field camera_3d fun(position: Vector3, target: Vector3, up?: Vector3, fovy?: number, projection?: integer): Camera3D Create a Camera3D
----@field camera_2d fun(offset?: Vector2, target?: Vector2, rotation?: number, zoom?: number): Camera2D Create a Camera2D
----@field ray fun(position: Vector3, direction: Vector3): Ray Create a Ray
----@field bounding_box fun(min: Vector3, max: Vector3): BoundingBox Create a BoundingBox
----
---- Utility functions
----
----@field new fun(ctype: string, ...: any): any Create a new FFI type (shortcut to ffi.new)
----@field ref fun(ctype: string, value?: any): any Create a pointer reference to a value (for out parameters)
----@field istype fun(ctype: string, value: any): boolean Check if a value is a valid FFI cdata
----@field sizeof fun(ctype: string): integer Get the size of a C type
----
---- Enumeration tables
----
----@field ConfigFlags table<string, integer> Window configuration flags
----@field TraceLogLevel table<string, integer> Trace log level
----@field KeyboardKey table<string, integer> Keyboard keys
----@field MouseButton table<string, integer> Mouse buttons
----@field MouseCursor table<string, integer> Mouse cursor types
----@field GamepadButton table<string, integer> Gamepad buttons
----@field GamepadAxis table<string, integer> Gamepad axes
----@field MaterialMapIndex table<string, integer> Material map indices
----@field ShaderLocationIndex table<string, integer> Shader location indices
----@field ShaderUniformDataType table<string, integer> Shader uniform data types
----@field ShaderAttributeDataType table<string, integer> Shader attribute data types
----@field PixelFormat table<string, integer> Pixel formats
----@field TextureFilter table<string, integer> Texture filter modes
----@field TextureWrap table<string, integer> Texture wrap modes
----@field CubemapLayout table<string, integer> Cubemap layout types
----@field FontType table<string, integer> Font types
----@field BlendMode table<string, integer> Blend modes
----@field Gesture table<string, integer> Gesture types
----@field CameraMode table<string, integer> Camera modes
----@field CameraProjection table<string, integer> Camera projection types
----@field NPatchLayout table<string, integer> N-patch layout types
 local rl = {}
 
 -- ============================================================================
@@ -1085,197 +843,38 @@ end
 local raylib_h = preprocessHeader(raylib_path)
 ffi.cdef(raylib_h)
 
--- Raymath: float3/float16 types are only in raymath.h, not raylib.h
-ffi.cdef[[
-	typedef struct float3 { float v[3]; } float3;
-	typedef struct float16 { float v[16]; } float16;
-]]
-
--- Raymath function declarations (inline in raymath.h but exported from libraylib)
--- Auto-parse raymath.h when available, extracting declarations from inline definitions.
--- Falls back to hardcoded declarations for reliability.
----@param header_path string
----@return string|nil
-local function extractRaymathDecls(header_path)
-	local content = preprocessHeader(header_path)
-	if not content then return nil end
-
-	local decls = {}
-	for line in content:gmatch("[^\r\n]+") do
-		local sig = line:match("^%s*inline%s+(.*%))%s*$")
-		if sig then
-			table.insert(decls, sig .. ";")
-		end
-	end
-
-	if #decls == 0 then return nil end
-	return table.concat(decls, "\n")
-end
-
-local raymath_path = findHeader("raymath.h")
-local raymath_decls = raymath_path and extractRaymathDecls(raymath_path)
-
-if raymath_decls then
-	ffi.cdef(raymath_decls)
-else
-	-- Fallback: hardcoded declarations for raylib 6.0 raymath
-	ffi.cdef[[
-	float Clamp(float value, float min, float max);
-	float Lerp(float start, float end, float amount);
-	float Normalize(float value, float start, float end);
-	float Remap(float value, float inputStart, float inputEnd, float outputStart, float outputEnd);
-	float Wrap(float value, float min, float max);
-	int FloatEquals(float x, float y);
-
-	Vector2 Vector2Zero(void);
-	Vector2 Vector2One(void);
-	Vector2 Vector2Add(Vector2 v1, Vector2 v2);
-	Vector2 Vector2AddValue(Vector2 v, float add);
-	Vector2 Vector2Subtract(Vector2 v1, Vector2 v2);
-	Vector2 Vector2SubtractValue(Vector2 v, float sub);
-	float Vector2Length(Vector2 v);
-	float Vector2LengthSqr(Vector2 v);
-	float Vector2DotProduct(Vector2 v1, Vector2 v2);
-	float Vector2CrossProduct(Vector2 v1, Vector2 v2);
-	float Vector2Distance(Vector2 v1, Vector2 v2);
-	float Vector2DistanceSqr(Vector2 v1, Vector2 v2);
-	float Vector2Angle(Vector2 v1, Vector2 v2);
-	float Vector2LineAngle(Vector2 start, Vector2 end);
-	Vector2 Vector2Scale(Vector2 v, float scale);
-	Vector2 Vector2Multiply(Vector2 v1, Vector2 v2);
-	Vector2 Vector2Negate(Vector2 v);
-	Vector2 Vector2Divide(Vector2 v1, Vector2 v2);
-	Vector2 Vector2Normalize(Vector2 v);
-	Vector2 Vector2Transform(Vector2 v, Matrix mat);
-	Vector2 Vector2Lerp(Vector2 v1, Vector2 v2, float amount);
-	Vector2 Vector2Reflect(Vector2 v, Vector2 normal);
-	Vector2 Vector2Min(Vector2 v1, Vector2 v2);
-	Vector2 Vector2Max(Vector2 v1, Vector2 v2);
-	Vector2 Vector2Rotate(Vector2 v, float angle);
-	Vector2 Vector2MoveTowards(Vector2 v, Vector2 target, float maxDistance);
-	Vector2 Vector2Invert(Vector2 v);
-	Vector2 Vector2Clamp(Vector2 v, Vector2 min, Vector2 max);
-	Vector2 Vector2ClampValue(Vector2 v, float min, float max);
-	int Vector2Equals(Vector2 p, Vector2 q);
-	Vector2 Vector2Refract(Vector2 v, Vector2 n, float r);
-
-	Vector3 Vector3Zero(void);
-	Vector3 Vector3One(void);
-	Vector3 Vector3Add(Vector3 v1, Vector3 v2);
-	Vector3 Vector3AddValue(Vector3 v, float add);
-	Vector3 Vector3Subtract(Vector3 v1, Vector3 v2);
-	Vector3 Vector3SubtractValue(Vector3 v, float sub);
-	Vector3 Vector3Scale(Vector3 v, float scalar);
-	Vector3 Vector3Multiply(Vector3 v1, Vector3 v2);
-	Vector3 Vector3CrossProduct(Vector3 v1, Vector3 v2);
-	Vector3 Vector3Perpendicular(Vector3 v);
-	float Vector3Length(const Vector3 v);
-	float Vector3LengthSqr(const Vector3 v);
-	float Vector3DotProduct(Vector3 v1, Vector3 v2);
-	float Vector3Distance(Vector3 v1, Vector3 v2);
-	float Vector3DistanceSqr(Vector3 v1, Vector3 v2);
-	float Vector3Angle(Vector3 v1, Vector3 v2);
-	Vector3 Vector3Negate(Vector3 v);
-	Vector3 Vector3Divide(Vector3 v1, Vector3 v2);
-	Vector3 Vector3Normalize(Vector3 v);
-	Vector3 Vector3Project(Vector3 v1, Vector3 v2);
-	Vector3 Vector3Reject(Vector3 v1, Vector3 v2);
-	void Vector3OrthoNormalize(Vector3 *v1, Vector3 *v2);
-	Vector3 Vector3Transform(Vector3 v, Matrix mat);
-	Vector3 Vector3RotateByQuaternion(Vector3 v, Vector4 q);
-	Vector3 Vector3RotateByAxisAngle(Vector3 v, Vector3 axis, float angle);
-	Vector3 Vector3MoveTowards(Vector3 v, Vector3 target, float maxDistance);
-	Vector3 Vector3Lerp(Vector3 v1, Vector3 v2, float amount);
-	Vector3 Vector3CubicHermite(Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, float amount);
-	Vector3 Vector3Reflect(Vector3 v, Vector3 normal);
-	Vector3 Vector3Min(Vector3 v1, Vector3 v2);
-	Vector3 Vector3Max(Vector3 v1, Vector3 v2);
-	Vector3 Vector3Barycenter(Vector3 p, Vector3 a, Vector3 b, Vector3 c);
-	Vector3 Vector3Unproject(Vector3 source, Matrix projection, Matrix view);
-	Vector3 Vector3Invert(Vector3 v);
-	Vector3 Vector3Clamp(Vector3 v, Vector3 min, Vector3 max);
-	Vector3 Vector3ClampValue(Vector3 v, float min, float max);
-	int Vector3Equals(Vector3 p, Vector3 q);
-	Vector3 Vector3Refract(Vector3 v, Vector3 n, float r);
-	float3 Vector3ToFloatV(Vector3 v);
-
-	Vector4 Vector4Zero(void);
-	Vector4 Vector4One(void);
-	Vector4 Vector4Add(Vector4 v1, Vector4 v2);
-	Vector4 Vector4AddValue(Vector4 v, float add);
-	Vector4 Vector4Subtract(Vector4 v1, Vector4 v2);
-	Vector4 Vector4SubtractValue(Vector4 v, float sub);
-	float Vector4Length(Vector4 v);
-	float Vector4LengthSqr(Vector4 v);
-	float Vector4DotProduct(Vector4 v1, Vector4 v2);
-	float Vector4Distance(Vector4 v1, Vector4 v2);
-	float Vector4DistanceSqr(Vector4 v1, Vector4 v2);
-	Vector4 Vector4Scale(Vector4 v, float scale);
-	Vector4 Vector4Multiply(Vector4 v1, Vector4 v2);
-	Vector4 Vector4Negate(Vector4 v);
-	Vector4 Vector4Divide(Vector4 v1, Vector4 v2);
-	Vector4 Vector4Normalize(Vector4 v);
-	Vector4 Vector4Min(Vector4 v1, Vector4 v2);
-	Vector4 Vector4Max(Vector4 v1, Vector4 v2);
-	Vector4 Vector4Lerp(Vector4 v1, Vector4 v2, float amount);
-	Vector4 Vector4MoveTowards(Vector4 v, Vector4 target, float maxDistance);
-	Vector4 Vector4Invert(Vector4 v);
-	int Vector4Equals(Vector4 p, Vector4 q);
-
-	float MatrixDeterminant(Matrix mat);
-	float MatrixTrace(Matrix mat);
-	Matrix MatrixTranspose(Matrix mat);
-	Matrix MatrixInvert(Matrix mat);
-	Matrix MatrixIdentity(void);
-	Matrix MatrixAdd(Matrix left, Matrix right);
-	Matrix MatrixSubtract(Matrix left, Matrix right);
-	Matrix MatrixMultiply(Matrix left, Matrix right);
-	Matrix MatrixTranslate(float x, float y, float z);
-	Matrix MatrixRotate(Vector3 axis, float angle);
-	Matrix MatrixRotateX(float angle);
-	Matrix MatrixRotateY(float angle);
-	Matrix MatrixRotateZ(float angle);
-	Matrix MatrixRotateXYZ(Vector3 angle);
-	Matrix MatrixRotateZYX(Vector3 angle);
-	Matrix MatrixScale(float x, float y, float z);
-	Matrix MatrixFrustum(double left, double right, double bottom, double top, double nearPlane, double farPlane);
-	Matrix MatrixPerspective(double fovY, double aspect, double nearPlane, double farPlane);
-	Matrix MatrixOrtho(double left, double right, double bottom, double top, double nearPlane, double farPlane);
-	Matrix MatrixLookAt(Vector3 eye, Vector3 target, Vector3 up);
-	float16 MatrixToFloatV(Matrix mat);
-	Matrix MatrixMultiplyValue(Matrix left, float value);
-	Matrix MatrixCompose(Vector3 translation, Vector4 rotation, Vector3 scale);
-	void MatrixDecompose(Matrix mat, Vector3 *translation, Vector4 *rotation, Vector3 *scale);
-
-	Vector4 QuaternionAdd(Vector4 q1, Vector4 q2);
-	Vector4 QuaternionAddValue(Vector4 q, float add);
-	Vector4 QuaternionSubtract(Vector4 q1, Vector4 q2);
-	Vector4 QuaternionSubtractValue(Vector4 q, float sub);
-	Vector4 QuaternionIdentity(void);
-	float QuaternionLength(Vector4 q);
-	Vector4 QuaternionNormalize(Vector4 q);
-	Vector4 QuaternionInvert(Vector4 q);
-	Vector4 QuaternionMultiply(Vector4 q1, Vector4 q2);
-	Vector4 QuaternionScale(Vector4 q, float mul);
-	Vector4 QuaternionDivide(Vector4 q1, Vector4 q2);
-	Vector4 QuaternionLerp(Vector4 q1, Vector4 q2, float amount);
-	Vector4 QuaternionNlerp(Vector4 q1, Vector4 q2, float amount);
-	Vector4 QuaternionSlerp(Vector4 q1, Vector4 q2, float amount);
-	Vector4 QuaternionCubicHermiteSpline(Vector4 q1, Vector4 outTangent1, Vector4 q2, Vector4 inTangent2, float t);
-	Vector4 QuaternionFromVector3ToVector3(Vector3 from, Vector3 to);
-	Vector4 QuaternionFromMatrix(Matrix mat);
-	Matrix QuaternionToMatrix(Vector4 q);
-	Vector4 QuaternionFromAxisAngle(Vector3 axis, float angle);
-	void QuaternionToAxisAngle(Vector4 q, Vector3 *outAxis, float *outAngle);
-	Vector4 QuaternionFromEuler(float pitch, float yaw, float roll);
-	Vector3 QuaternionToEuler(Vector4 q);
-	Vector4 QuaternionTransform(Vector4 q, Matrix mat);
-	int QuaternionEquals(Vector4 p, Vector4 q);
-	]]
-end
-
 ---@type any
 rl.lib = ffi.load("raylib")
+
+-- ============================================================================
+-- COLOR CONSTANTS
+-- ============================================================================
+rl.LIGHTGRAY = ffi.new("Color", 200, 200, 200, 255)
+rl.GRAY = ffi.new("Color", 130, 130, 130, 255)
+rl.DARKGRAY = ffi.new("Color", 80, 80, 80, 255)
+rl.YELLOW = ffi.new("Color", 253, 249, 0, 255)
+rl.GOLD = ffi.new("Color", 255, 203, 0, 255)
+rl.ORANGE = ffi.new("Color", 255, 161, 0, 255)
+rl.PINK = ffi.new("Color", 255, 109, 194, 255)
+rl.RED = ffi.new("Color", 230, 41, 55, 255)
+rl.MAROON = ffi.new("Color", 190, 33, 55, 255)
+rl.GREEN = ffi.new("Color", 0, 228, 48, 255)
+rl.LIME = ffi.new("Color", 0, 158, 47, 255)
+rl.DARKGREEN = ffi.new("Color", 0, 117, 44, 255)
+rl.SKYBLUE = ffi.new("Color", 102, 191, 255, 255)
+rl.BLUE = ffi.new("Color", 0, 121, 241, 255)
+rl.DARKBLUE = ffi.new("Color", 0, 82, 172, 255)
+rl.PURPLE = ffi.new("Color", 200, 122, 255, 255)
+rl.VIOLET = ffi.new("Color", 135, 60, 190, 255)
+rl.DARKPURPLE = ffi.new("Color", 112, 31, 126, 255)
+rl.BEIGE = ffi.new("Color", 211, 176, 131, 255)
+rl.BROWN = ffi.new("Color", 127, 106, 79, 255)
+rl.DARKBROWN = ffi.new("Color", 76, 63, 47, 255)
+rl.WHITE = ffi.new("Color", 255, 255, 255, 255)
+rl.BLACK = ffi.new("Color", 0, 0, 0, 255)
+rl.BLANK = ffi.new("Color", 0, 0, 0, 0)
+rl.MAGENTA = ffi.new("Color", 255, 0, 255, 255)
+rl.RAYWHITE = ffi.new("Color", 245, 245, 245, 255)
 
 -- ============================================================================
 -- TYPE DEFINITIONS (for LSP)
@@ -1315,12 +914,6 @@ rl.lib = ffi.load("raylib")
 ---@field m7 number
 ---@field m11 number
 ---@field m15 number
-
----@class float3
----@field v number[]
-
----@class float16
----@field v number[]
 
 ---@class Color
 ---@field r integer
@@ -1399,20 +992,21 @@ rl.lib = ffi.load("raylib")
 ---@class Mesh
 ---@field vertexCount integer Number of vertices stored in arrays
 ---@field triangleCount integer Number of triangles stored (indexed or not)
----@field vertices number[] Vertex position (XYZ - 3 components per vertex)
----@field texcoords number[] Vertex texture coordinates (UV - 2 components per vertex)
----@field texcoords2 number[] Vertex texture second coordinates (UV - 2 components per vertex)
----@field normals number[] Vertex normals (XYZ - 3 components per vertex)
----@field tangents number[] Vertex tangents (XYZW - 4 components per vertex)
----@field colors integer[] Vertex colors (RGBA - 4 components per vertex, unsigned char)
----@field indices integer[] Vertex indices (in case vertex data comes indexed, unsigned short)
----@field boneCount integer Number of bones
----@field boneIndices integer[] Vertex bone indices, up to 4 bones influence by vertex (unsigned char)
----@field boneWeights number[] Vertex bone weight, up to 4 bones influence by vertex
+---@field vertices number[] Vertices position (XYZ - 3 components per vertex) (shader-location = 0)
+---@field texcoords number[] Vertices texture coordinates (UV - 2 components per vertex) (shader-location = 1)
+---@field texcoords2 number[] Vertices texture second coordinates (UV - 2 components per vertex) (shader-location = 5)
+---@field normals number[] Vertices normals (XYZ - 3 components per vertex) (shader-location = 2)
+---@field tangents number[] Vertices tangents (XYZW - 4 components per vertex) (shader-location = 4)
+---@field colors integer[] Vertices colors (RGBA - 4 components per vertex) (shader-location = 3)
+---@field indices integer[] Vertices indices (in case vertex data comes indexed)
 ---@field animVertices number[] Animated vertex positions (after bones transformations)
 ---@field animNormals number[] Animated normals (after bones transformations)
+---@field boneIds integer[] Vertex bone ids, max 255 bone ids, up to 4 per vertex
+---@field boneWeights number[] Vertex bone weight, up to 4 per vertex
+---@field boneMatrices Matrix[] Bones animated transformation matrices
+---@field boneCount integer Number of bones
 ---@field vaoId integer OpenGL Vertex Array Object id
----@field vboId integer[] OpenGL Vertex Buffer Objects id (default vertex data)
+---@field vboId integer[] OpenGL Vertex Buffer Objects id (7 potential types)
 
 ---@class Shader
 ---@field id integer Shader program id
@@ -1424,42 +1018,36 @@ rl.lib = ffi.load("raylib")
 ---@field value number
 
 ---@class Material
----@field shader Shader Material shader
----@field maps MaterialMap[] Material maps array (MAX_MATERIAL_MAPS)
----@field params number[] Material generic parameters (if required)
+---@field shader Shader
+---@field maps MaterialMap[]
+---@field params number[] | number Material generic parameters (if required)
 
 ---@class Transform
 ---@field translation Vector3
----@field rotation Quaternion
+---@field rotation Vector4
 ---@field scale Vector3
 
 ---@class BoneInfo
 ---@field name string
 ---@field parent integer
 
----@alias ModelAnimPose Transform[]
-
----@class ModelSkeleton
----@field boneCount integer Number of bones
----@field bones BoneInfo[] Bones information (skeleton)
----@field bindPose ModelAnimPose Bones base transformation (bind pose)
-
 ---@class Model
----@field transform Matrix Local transform matrix
----@field meshCount integer Number of meshes
----@field materialCount integer Number of materials
----@field meshes Mesh[] Meshes array
----@field materials Material[] Materials array
----@field meshMaterial integer[] Mesh material number
----@field skeleton ModelSkeleton Skeleton for animation
----@field currentPose ModelAnimPose Current animation pose
----@field boneMatrices Matrix[] Bones animated transformation matrices
+---@field transform Matrix
+---@field meshCount integer
+---@field materialCount integer
+---@field meshes Mesh[]
+---@field materials Material[]
+---@field meshMaterial integer[]
+---@field boneCount integer
+---@field bones BoneInfo[]
+---@field bindPose Transform[]
 
 ---@class ModelAnimation
----@field name string Animation name
----@field boneCount integer Number of bones (per pose)
----@field keyframeCount integer Number of animation key frames
----@field keyframePoses ModelAnimPose[] Animation sequence keyframe poses
+---@field boneCount integer
+---@field frameCount integer
+---@field bones BoneInfo[]
+---@field framePoses Transform[][]
+---@field name string
 
 ---@class Ray
 ---@field position Vector3
@@ -1476,18 +1064,18 @@ rl.lib = ffi.load("raylib")
 ---@field max Vector3
 
 ---@class Wave
----@field frameCount integer Total number of frames (considering channels)
----@field sampleRate integer Frequency (samples per second)
----@field sampleSize integer Bit depth (bits per sample): 8, 16, 32
----@field channels integer Number of channels (1-mono, 2-stereo)
----@field data lightuserdata Buffer data pointer
+---@field frameCount integer
+---@field sampleRate integer
+---@field sampleSize integer
+---@field channels integer
+---@field data lightuserdata
 
 ---@class AudioStream
----@field buffer lightuserdata Pointer to internal data used by the audio system
----@field processor lightuserdata Pointer to internal data processor, useful for audio effects
----@field sampleRate integer Frequency (samples per second)
----@field sampleSize integer Bit depth (bits per sample): 8, 16, 32
----@field channels integer Number of channels (1-mono, 2-stereo)
+---@field buffer lightuserdata
+---@field processor lightuserdata
+---@field sampleRate integer
+---@field sampleSize integer
+---@field channels integer
 
 ---@class Sound
 ---@field stream AudioStream
@@ -1498,7 +1086,7 @@ rl.lib = ffi.load("raylib")
 ---@field frameCount integer
 ---@field looping boolean
 ---@field ctxType integer
----@field ctxData lightuserdata Audio context data, depends on type
+---@field ctxData lightuserdata
 
 ---@class VrDeviceInfo
 ---@field hResolution integer
@@ -1522,41 +1110,211 @@ rl.lib = ffi.load("raylib")
 ---@field scaleIn number[]
 
 ---@class FilePathList
----@field count integer Filepaths entries count
----@field paths string[] Filepaths entries
+---@field capacity integer
+---@field count integer
+---@field paths string[]
 
 ---@class AutomationEvent
 ---@field frame integer
 ---@field type integer
----@field params integer[]
+---@param params integer[]
 
 ---@class AutomationEventList
 ---@field capacity integer
 ---@field count integer
----@field events AutomationEvent[] Events entries
-
+---@param events AutomationEvent[]
 
 -- ============================================================================
--- ENUMERATIONS
+-- CONSTRUCTOR FUNCTIONS
+-- ============================================================================
+
+---Create a Color from RGBA values, hex string, or hex number
+---@param r number|string Red value (0-255) or hex string like "#FF0000" or hex number
+---@param g? number Green value (0-255)
+---@param b? number Blue value (0-255)
+---@param a? number Alpha value (0-255, default 255)
+---@return Color
+function rl.color(r, g, b, a)
+	if type(r) == "string" then
+		local hex = r:gsub("#", "")
+		local num = tonumber(hex, 16)
+		if #hex == 6 then
+			return rl.lib.GetColor(num * 256 + (a or 255))
+		elseif #hex == 8 then
+			return rl.lib.GetColor(num)
+		else
+			error("Invalid hex color string: " .. r)
+		end
+	elseif type(r) == "number" and g == nil then
+		-- r is a hex number
+		return rl.lib.GetColor(r)
+	else
+		return ffi.new("Color", r or 0, g or 0, b or 0, a or 255)
+	end
+end
+
+---Create a Vector2
+---@param x? number
+---@param y? number
+---@return Vector2
+function rl.vector2(x, y)
+	return ffi.new("Vector2", x or 0, y or 0)
+end
+
+---Create a Vector3
+---@param x? number
+---@param y? number
+---@param z? number
+---@return Vector3
+function rl.vector3(x, y, z)
+	return ffi.new("Vector3", x or 0, y or 0, z or 0)
+end
+
+---Create a Vector4
+---@param x? number
+---@param y? number
+---@param z? number
+---@param w? number
+---@return Vector4
+function rl.vector4(x, y, z, w)
+	return ffi.new("Vector4", x or 0, y or 0, z or 0, w or 0)
+end
+
+---Create a Rectangle
+---@param x? number
+---@param y? number
+---@param width? number
+---@param height? number
+---@return Rectangle
+function rl.rectangle(x, y, width, height)
+	return ffi.new("Rectangle", x or 0, y or 0, width or 0, height or 0)
+end
+
+---Create a Camera3D
+---@param position Vector3
+---@param target Vector3
+---@param up? Vector3
+---@param fovy? number
+---@param projection? integer
+---@return Camera3D
+function rl.camera_3d(position, target, up, fovy, projection)
+	return ffi.new("Camera3D", position, target, up or rl.vector3(0, 1, 0), fovy or 45, projection or 0)
+end
+
+---Create a Camera2D
+---@param offset? Vector2
+---@param target? Vector2
+---@param rotation? number
+---@param zoom? number
+---@return Camera2D
+function rl.camera_2d(offset, target, rotation, zoom)
+	return ffi.new("Camera2D", offset or rl.vector2(0, 0), target or rl.vector2(0, 0), rotation or 0, zoom or 1)
+end
+
+---Create a Ray
+---@param position Vector3
+---@param direction Vector3
+---@return Ray
+function rl.ray(position, direction)
+	return ffi.new("Ray", position, direction)
+end
+
+---Create a BoundingBox
+---@param min Vector3
+---@param max Vector3
+---@return BoundingBox
+function rl.bounding_box(min, max)
+	return ffi.new("BoundingBox", min, max)
+end
+
+-- CamelCase aliases for constructors (matching FFI convention)
+rl.Color = rl.color
+rl.Vector2 = rl.vector2
+rl.Vector3 = rl.vector3
+rl.Vector4 = rl.vector4
+rl.Rectangle = rl.rectangle
+rl.Camera3D = rl.camera_3d
+rl.Camera2D = rl.camera_2d
+rl.Ray = rl.ray
+rl.BoundingBox = rl.bounding_box
+
+-- ============================================================================
+-- UTILITY FUNCTIONS
+-- ============================================================================
+
+---Create a new FFI type (shortcut to ffi.new)
+---@param ctype string
+---@param ... any
+---@return any
+function rl.new(ctype, ...)
+	return ffi.new(ctype, ...)
+end
+
+---Create a pointer reference to a value (for out parameters)
+---@param ctype string
+---@param value? any
+---@return any
+function rl.ref(ctype, value)
+	if value then
+		return ffi.new(ctype .. "[1]", value)
+	else
+		return ffi.new(ctype .. "[1]")
+	end
+end
+
+---Check if a value is a valid FFI cdata
+---@param value any
+---@return boolean
+function rl.istype(ctype, value)
+	return ffi.istype(ctype, value)
+end
+
+---Get the size of a C type
+---@param ctype string The C type name
+---@return integer
+function rl.sizeof(ctype)
+	return ffi.sizeof(ctype)
+end
+
+-- ============================================================================
+-- NOTE: Vector/Quaternion/Matrix metatypes with math operators are set up by
+-- raymath.lua. If you need vector operator overloads (+, -, *, /, etc.),
+-- require("raymath") before or after requiring raylib.
+
+ffi.metatype("Color", {
+	__eq = function(a, b) 
+		if not a or not b then return false end
+		return a.r == b.r and a.g == b.g and a.b == b.b and a.a == b.a 
+	end,
+	__tostring = function(c) return string.format("Color(%d, %d, %d, %d)", c.r, c.g, c.b, c.a) end,
+})
+
+ffi.metatype("Rectangle", {
+	__eq = function(a, b) return a.x == b.x and a.y == b.y and a.width == b.width and a.height == b.height end,
+	__tostring = function(r) return string.format("Rectangle(%.1f, %.1f, %.1f, %.1f)", r.x, r.y, r.width, r.height) end,
+})
+
+-- ============================================================================
+-- ENUMERATION TABLES
 -- ============================================================================
 
 rl.ConfigFlags = {
-	FLAG_VSYNC_HINT = 0x00000040,
-	FLAG_FULLSCREEN_MODE = 0x00000002,
-	FLAG_WINDOW_RESIZABLE = 0x00000004,
-	FLAG_WINDOW_UNDECORATED = 0x00000008,
-	FLAG_WINDOW_HIDDEN = 0x00000080,
-	FLAG_WINDOW_MINIMIZED = 0x00000200,
-	FLAG_WINDOW_MAXIMIZED = 0x00000400,
-	FLAG_WINDOW_UNFOCUSED = 0x00000800,
-	FLAG_WINDOW_TOPMOST = 0x00001000,
-	FLAG_WINDOW_ALWAYS_RUN = 0x00000100,
-	FLAG_WINDOW_TRANSPARENT = 0x00000010,
-	FLAG_WINDOW_HIGHDPI = 0x00002000,
-	FLAG_WINDOW_MOUSE_PASSTHROUGH = 0x00004000,
-	FLAG_BORDERLESS_WINDOWED_MODE = 0x00008000,
-	FLAG_MSAA_4X_HINT = 0x00000020,
-	FLAG_INTERLACED_HINT = 0x00010000,
+	FLAG_VSYNC_HINT = 64,
+	FLAG_FULLSCREEN_MODE = 2,
+	FLAG_WINDOW_RESIZABLE = 4,
+	FLAG_WINDOW_UNDECORATED = 8,
+	FLAG_WINDOW_HIDDEN = 128,
+	FLAG_WINDOW_MINIMIZED = 512,
+	FLAG_WINDOW_MAXIMIZED = 1024,
+	FLAG_WINDOW_UNFOCUSED = 2048,
+	FLAG_WINDOW_TOPMOST = 4096,
+	FLAG_WINDOW_ALWAYS_RUN = 256,
+	FLAG_WINDOW_TRANSPARENT = 16,
+	FLAG_WINDOW_HIGHDPI = 8192,
+	FLAG_WINDOW_MOUSE_PASSTHROUGH = 32768,
+	FLAG_BORDERLESS_WINDOWED_MODE = 65536,
+	FLAG_MSAA_4X_HINT = 32,
+	FLAG_INTERLACED_HINT = 65536,
 }
 
 rl.TraceLogLevel = {
@@ -1651,15 +1409,18 @@ rl.KeyboardKey = {
 	KEY_F10 = 299,
 	KEY_F11 = 300,
 	KEY_F12 = 301,
-	KEY_LEFT_SHIFT = 340,
-	KEY_LEFT_CONTROL = 341,
-	KEY_LEFT_ALT = 342,
-	KEY_LEFT_SUPER = 343,
-	KEY_RIGHT_SHIFT = 344,
-	KEY_RIGHT_CONTROL = 345,
-	KEY_RIGHT_ALT = 346,
-	KEY_RIGHT_SUPER = 347,
-	KEY_KB_MENU = 348,
+	KEY_F13 = 302,
+	KEY_F14 = 303,
+	KEY_F15 = 304,
+	KEY_F16 = 305,
+	KEY_F17 = 306,
+	KEY_F18 = 307,
+	KEY_F19 = 308,
+	KEY_F20 = 309,
+	KEY_F21 = 310,
+	KEY_F22 = 311,
+	KEY_F23 = 312,
+	KEY_F24 = 313,
 	KEY_KP_0 = 320,
 	KEY_KP_1 = 321,
 	KEY_KP_2 = 322,
@@ -1677,10 +1438,15 @@ rl.KeyboardKey = {
 	KEY_KP_ADD = 334,
 	KEY_KP_ENTER = 335,
 	KEY_KP_EQUAL = 336,
-	KEY_BACK = 4,
-	KEY_MENU = 5,
-	KEY_VOLUME_UP = 24,
-	KEY_VOLUME_DOWN = 25,
+	KEY_LEFT_SHIFT = 340,
+	KEY_LEFT_CONTROL = 341,
+	KEY_LEFT_ALT = 342,
+	KEY_LEFT_SUPER = 343,
+	KEY_RIGHT_SHIFT = 344,
+	KEY_RIGHT_CONTROL = 345,
+	KEY_RIGHT_ALT = 346,
+	KEY_RIGHT_SUPER = 347,
+	KEY_KB_MENU = 348,
 }
 
 rl.MouseButton = {
@@ -1778,10 +1544,6 @@ rl.ShaderLocationIndex = {
 	SHADER_LOC_MAP_IRRADIANCE = 23,
 	SHADER_LOC_MAP_PREFILTER = 24,
 	SHADER_LOC_MAP_BRDF = 25,
-	SHADER_LOC_VERTEX_BONEIDS = 26,
-	SHADER_LOC_VERTEX_BONEWEIGHTS = 27,
-	SHADER_LOC_MATRIX_BONETRANSFORMS = 28,
-	SHADER_LOC_VERTEX_INSTANCETRANSFORM = 29,
 }
 
 rl.ShaderUniformDataType = {
@@ -1793,11 +1555,7 @@ rl.ShaderUniformDataType = {
 	SHADER_UNIFORM_IVEC2 = 5,
 	SHADER_UNIFORM_IVEC3 = 6,
 	SHADER_UNIFORM_IVEC4 = 7,
-	SHADER_UNIFORM_UINT = 8,
-	SHADER_UNIFORM_UIVEC2 = 9,
-	SHADER_UNIFORM_UIVEC3 = 10,
-	SHADER_UNIFORM_UIVEC4 = 11,
-	SHADER_UNIFORM_SAMPLER2D = 12,
+	SHADER_UNIFORM_SAMPLER2D = 8,
 }
 
 rl.ShaderAttributeDataType = {
@@ -1907,311 +1665,6 @@ rl.NPatchLayout = {
 	NPATCH_THREE_PATCH_VERTICAL = 1,
 	NPATCH_THREE_PATCH_HORIZONTAL = 2,
 }
-
-
--- ============================================================================
--- COLOR CONSTANTS
--- ============================================================================
-
----@type Color
-rl.LIGHTGRAY = ffi.new("Color", 200, 200, 200, 255)
----@type Color
-rl.GRAY = ffi.new("Color", 130, 130, 130, 255)
----@type Color
-rl.DARKGRAY = ffi.new("Color", 80, 80, 80, 255)
----@type Color
-rl.YELLOW = ffi.new("Color", 253, 249, 0, 255)
----@type Color
-rl.GOLD = ffi.new("Color", 255, 203, 0, 255)
----@type Color
-rl.ORANGE = ffi.new("Color", 255, 161, 0, 255)
----@type Color
-rl.PINK = ffi.new("Color", 255, 109, 194, 255)
----@type Color
-rl.RED = ffi.new("Color", 230, 41, 55, 255)
----@type Color
-rl.MAROON = ffi.new("Color", 190, 33, 55, 255)
----@type Color
-rl.GREEN = ffi.new("Color", 0, 228, 48, 255)
----@type Color
-rl.LIME = ffi.new("Color", 0, 158, 47, 255)
----@type Color
-rl.DARKGREEN = ffi.new("Color", 0, 117, 44, 255)
----@type Color
-rl.SKYBLUE = ffi.new("Color", 102, 191, 255, 255)
----@type Color
-rl.BLUE = ffi.new("Color", 0, 121, 241, 255)
----@type Color
-rl.DARKBLUE = ffi.new("Color", 0, 82, 172, 255)
----@type Color
-rl.PURPLE = ffi.new("Color", 200, 122, 255, 255)
----@type Color
-rl.VIOLET = ffi.new("Color", 135, 60, 190, 255)
----@type Color
-rl.DARKPURPLE = ffi.new("Color", 112, 31, 126, 255)
----@type Color
-rl.BEIGE = ffi.new("Color", 211, 176, 131, 255)
----@type Color
-rl.BROWN = ffi.new("Color", 127, 106, 79, 255)
----@type Color
-rl.DARKBROWN = ffi.new("Color", 76, 63, 47, 255)
----@type Color
-rl.WHITE = ffi.new("Color", 255, 255, 255, 255)
----@type Color
-rl.BLACK = ffi.new("Color", 0, 0, 0, 255)
----@type Color
-rl.BLANK = ffi.new("Color", 0, 0, 0, 0)
----@type Color
-rl.MAGENTA = ffi.new("Color", 255, 0, 255, 255)
----@type Color
-rl.RAYWHITE = ffi.new("Color", 245, 245, 245, 255)
-
-
--- ============================================================================
--- CONSTRUCTORS
--- ============================================================================
-
----Create a Color from RGBA values, hex string, or hex number
----@param r number|string Red component (0-255) or hex string "#RRGGBB" or hex number
----@param g? number Green component (0-255)
----@param b? number Blue component (0-255)
----@param a? number Alpha component (0-255), defaults to 255
----@return Color
-function rl.Color(r, g, b, a)
-	if type(r) == "string" then
-		local hex = r:gsub("#", "")
-		if #hex == 6 then hex = hex .. "FF" end
-		return rl.lib.GetColor(tonumber(hex, 16))
-	elseif type(r) == "number" and not g then
-		return rl.lib.GetColor(r)
-	else
-		return ffi.new("Color", r or 255, g or 255, b or 255, a or 255)
-	end
-end
-
----Create a Vector2
----@param x? number X component, defaults to 0
----@param y? number Y component, defaults to 0
----@return Vector2
-function rl.Vector2(x, y)
-	return ffi.new("Vector2", x or 0, y or 0)
-end
-
----Create a Vector3
----@param x? number X component, defaults to 0
----@param y? number Y component, defaults to 0
----@param z? number Z component, defaults to 0
----@return Vector3
-function rl.Vector3(x, y, z)
-	return ffi.new("Vector3", x or 0, y or 0, z or 0)
-end
-
----Create a Vector4
----@param x? number X component, defaults to 0
----@param y? number Y component, defaults to 0
----@param z? number Z component, defaults to 0
----@param w? number W component, defaults to 0
----@return Vector4
-function rl.Vector4(x, y, z, w)
-	return ffi.new("Vector4", x or 0, y or 0, z or 0, w or 0)
-end
-
----Create a Rectangle
----@param x? number X position, defaults to 0
----@param y? number Y position, defaults to 0
----@param width? number Width, defaults to 0
----@param height? number Height, defaults to 0
----@return Rectangle
-function rl.Rectangle(x, y, width, height)
-	return ffi.new("Rectangle", x or 0, y or 0, width or 0, height or 0)
-end
-
----Create a Camera3D
----@param position Vector3 Camera position
----@param target Vector3 Camera target point
----@param up? Vector3 Camera up vector, defaults to (0, 1, 0)
----@param fovy? number Field of view Y, defaults to 45
----@param projection? integer Camera projection type, defaults to CAMERA_PERSPECTIVE
----@return Camera3D
-function rl.Camera3D(position, target, up, fovy, projection)
-	return ffi.new("Camera3D",
-		position,
-		target,
-		up or ffi.new("Vector3", 0, 1, 0),
-		fovy or 45,
-		projection or rl.CameraProjection.CAMERA_PERSPECTIVE
-	)
-end
-
----Create a Camera2D
----@param offset? Vector2 Camera offset, defaults to (0, 0)
----@param target? Vector2 Camera target, defaults to (0, 0)
----@param rotation? number Camera rotation, defaults to 0
----@param zoom? number Camera zoom, defaults to 1
----@return Camera2D
-function rl.Camera2D(offset, target, rotation, zoom)
-	return ffi.new("Camera2D",
-		offset or ffi.new("Vector2", 0, 0),
-		target or ffi.new("Vector2", 0, 0),
-		rotation or 0,
-		zoom or 1
-	)
-end
-
----Create a Ray
----@param position Vector3 Ray origin position
----@param direction Vector3 Ray direction
----@return Ray
-function rl.Ray(position, direction)
-	return ffi.new("Ray", position, direction)
-end
-
----Create a BoundingBox
----@param min Vector3 Minimum vertex box-corner
----@param max Vector3 Maximum vertex box-corner
----@return BoundingBox
-function rl.BoundingBox(min, max)
-	return ffi.new("BoundingBox", min, max)
-end
-
-
--- ============================================================================
--- METATABLES (operator overloading)
--- ============================================================================
-
-ffi.metatype("Vector2", {
-	__tostring = function(v) return string.format("Vector2(%.3f, %.3f)", v.x, v.y) end,
-	__add = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector2AddValue(b, a) end
-		if type(b) == "number" then return rl.lib.Vector2AddValue(a, b) end
-		return rl.lib.Vector2Add(a, b)
-	end,
-	__sub = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector2Negate(rl.lib.Vector2SubtractValue(b, a)) end
-		if type(b) == "number" then return rl.lib.Vector2SubtractValue(a, b) end
-		return rl.lib.Vector2Subtract(a, b)
-	end,
-	__mul = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector2Scale(b, a) end
-		if type(b) == "number" then return rl.lib.Vector2Scale(a, b) end
-		return rl.lib.Vector2Multiply(a, b)
-	end,
-	__div = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector2Scale(rl.lib.Vector2Invert(b), a) end
-		if type(b) == "number" then return rl.lib.Vector2Scale(a, 1/b) end
-		return rl.lib.Vector2Divide(a, b)
-	end,
-	__unm = function(a) return rl.lib.Vector2Negate(a) end,
-	__eq = function(a, b) return rl.lib.Vector2Equals(a, b) == 1 end,
-	__len = function(a) return rl.lib.Vector2Length(a) end,
-})
-
-ffi.metatype("Vector3", {
-	__tostring = function(v) return string.format("Vector3(%.3f, %.3f, %.3f)", v.x, v.y, v.z) end,
-	__add = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector3AddValue(b, a) end
-		if type(b) == "number" then return rl.lib.Vector3AddValue(a, b) end
-		return rl.lib.Vector3Add(a, b)
-	end,
-	__sub = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector3Negate(rl.lib.Vector3SubtractValue(b, a)) end
-		if type(b) == "number" then return rl.lib.Vector3SubtractValue(a, b) end
-		return rl.lib.Vector3Subtract(a, b)
-	end,
-	__mul = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector3Scale(b, a) end
-		if type(b) == "number" then return rl.lib.Vector3Scale(a, b) end
-		return rl.lib.Vector3Multiply(a, b)
-	end,
-	__div = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector3Scale(rl.lib.Vector3Invert(b), a) end
-		if type(b) == "number" then return rl.lib.Vector3Scale(a, 1/b) end
-		return rl.lib.Vector3Divide(a, b)
-	end,
-	__unm = function(a) return rl.lib.Vector3Negate(a) end,
-	__eq = function(a, b) return rl.lib.Vector3Equals(a, b) == 1 end,
-	__len = function(a) return rl.lib.Vector3Length(a) end,
-})
-
-ffi.metatype("Vector4", {
-	__tostring = function(v) return string.format("Vector4(%.3f, %.3f, %.3f, %.3f)", v.x, v.y, v.z, v.w) end,
-	__add = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector4AddValue(b, a) end
-		if type(b) == "number" then return rl.lib.Vector4AddValue(a, b) end
-		return rl.lib.Vector4Add(a, b)
-	end,
-	__sub = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector4Negate(rl.lib.Vector4SubtractValue(b, a)) end
-		if type(b) == "number" then return rl.lib.Vector4SubtractValue(a, b) end
-		return rl.lib.Vector4Subtract(a, b)
-	end,
-	__mul = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector4Scale(b, a) end
-		if type(b) == "number" then return rl.lib.Vector4Scale(a, b) end
-		return rl.lib.Vector4Multiply(a, b)
-	end,
-	__div = function(a, b)
-		if type(a) == "number" then return rl.lib.Vector4Scale(rl.lib.Vector4Invert(b), a) end
-		if type(b) == "number" then return rl.lib.Vector4Scale(a, 1/b) end
-		return rl.lib.Vector4Divide(a, b)
-	end,
-	__unm = function(a) return rl.lib.Vector4Negate(a) end,
-	__eq = function(a, b) return rl.lib.Vector4Equals(a, b) == 1 end,
-	__len = function(a) return rl.lib.Vector4Length(a) end,
-})
-
-ffi.metatype("Matrix", {
-	__tostring = function(m)
-		return string.format("Matrix(%.3f, %.3f, %.3f, %.3f, ...)", m.m0, m.m4, m.m8, m.m12)
-	end,
-	__add = function(a, b) return rl.lib.MatrixAdd(a, b) end,
-	__sub = function(a, b) return rl.lib.MatrixSubtract(a, b) end,
-	__mul = function(a, b) return rl.lib.MatrixMultiply(a, b) end,
-})
-
-ffi.metatype("Color", {
-	__tostring = function(c) return string.format("Color(%d, %d, %d, %d)", c.r, c.g, c.b, c.a) end,
-})
-
-ffi.metatype("Rectangle", {
-	__tostring = function(r) return string.format("Rectangle(%.1f, %.1f, %.1f, %.1f)", r.x, r.y, r.width, r.height) end,
-})
-
-
--- ============================================================================
--- UTILITY FUNCTIONS
--- ============================================================================
-
----Create a new FFI type (shortcut to ffi.new)
----@param ctype string The C type name
----@param ... any Initial values
----@return any
-rl.new = function(ctype, ...) return ffi.new(ctype, ...) end
-
----Create a pointer reference to a value (for out parameters)
----@param ctype string The C type name
----@param value? any Initial value
----@return any
-function rl.ref(ctype, value)
-	local ptr = ffi.new(ctype .. "[1]")
-	if value then ptr[0] = value end
-	return ptr
-end
-
----Check if a value is a valid FFI cdata
----@param value any
----@return boolean
-function rl.istype(ctype, value)
-	return ffi.istype(ctype, value)
-end
-
----Get the size of a C type
----@param ctype string The C type name
----@return integer
-function rl.sizeof(ctype)
-	return ffi.sizeof(ctype)
-end
-
 
 -- ============================================================================
 -- METATABLE (runtime dispatch to FFI)
