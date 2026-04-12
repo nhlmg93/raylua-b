@@ -4,7 +4,7 @@
 -- Run with: luajit test_raylib.lua
 -- ==========================================================================
 
-local lu = require("luaunit")
+local lu = require("vendor.luaunit")
 local ffi = require("ffi")
 local rl = require("raylib")
 local rm = require("raymath")  -- Load raymath for vector metatypes with operators and tostring

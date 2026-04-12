@@ -1,0 +1,15 @@
+# Dependencies (downloaded by Makefile)
+vendor/
+
+# Compiled/Generated files
+*.o
+*.so
+*.dll
+*.dylib
+
+# Lua bytecode
+*.luac
+
+# OS files
+.DS_Store
+Thumbs.db

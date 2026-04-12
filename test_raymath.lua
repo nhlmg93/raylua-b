@@ -4,7 +4,7 @@
 -- Run with: luajit test_raymath.lua
 -- ==========================================================================
 
-local lu = require("luaunit")
+local lu = require("vendor.luaunit")
 local ffi = require("ffi")
 local rm = require("raymath")
 
