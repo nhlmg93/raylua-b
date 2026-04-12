@@ -135,7 +135,7 @@ end
 TestConstructors = {}
 
 function TestConstructors:testColorRGBA()
-	local c = rl.Color(255, 128, 64, 32)
+	local c = rl.color(255, 128, 64, 32)
 	lu.assertEquals(c.r, 255)
 	lu.assertEquals(c.g, 128)
 	lu.assertEquals(c.b, 64)
@@ -143,7 +143,7 @@ function TestConstructors:testColorRGBA()
 end
 
 function TestConstructors:testColorRGBADefaultAlpha()
-	local c = rl.Color(255, 128, 64)
+	local c = rl.color(255, 128, 64)
 	lu.assertEquals(c.r, 255)
 	lu.assertEquals(c.g, 128)
 	lu.assertEquals(c.b, 64)
@@ -151,7 +151,7 @@ function TestConstructors:testColorRGBADefaultAlpha()
 end
 
 function TestConstructors:testColorHexStringRed()
-	local c = rl.Color("#FF0000")
+	local c = rl.color("#FF0000")
 	lu.assertEquals(c.r, 255)
 	lu.assertEquals(c.g, 0)
 	lu.assertEquals(c.b, 0)
@@ -159,7 +159,7 @@ function TestConstructors:testColorHexStringRed()
 end
 
 function TestConstructors:testColorHexStringWithAlpha()
-	local c = rl.Color("#FF000080")
+	local c = rl.color("#FF000080")
 	lu.assertEquals(c.r, 255)
 	lu.assertEquals(c.g, 0)
 	lu.assertEquals(c.b, 0)
@@ -167,7 +167,7 @@ function TestConstructors:testColorHexStringWithAlpha()
 end
 
 function TestConstructors:testColorHexStringLowercase()
-	local c = rl.Color("#ff8040")
+	local c = rl.color("#ff8040")
 	lu.assertEquals(c.r, 255)
 	lu.assertEquals(c.g, 128)
 	lu.assertEquals(c.b, 64)
@@ -175,7 +175,7 @@ function TestConstructors:testColorHexStringLowercase()
 end
 
 function TestConstructors:testColorHexNumberRed()
-	local c = rl.Color(0xFF0000FF)
+	local c = rl.color(0xFF0000FF)
 	lu.assertEquals(c.r, 255)
 	lu.assertEquals(c.g, 0)
 	lu.assertEquals(c.b, 0)
@@ -183,7 +183,7 @@ function TestConstructors:testColorHexNumberRed()
 end
 
 function TestConstructors:testColorHexNumberTransparent()
-	local c = rl.Color(0xFF000080)
+	local c = rl.color(0xFF000080)
 	lu.assertEquals(c.r, 255)
 	lu.assertEquals(c.g, 0)
 	lu.assertEquals(c.b, 0)
@@ -191,33 +191,33 @@ function TestConstructors:testColorHexNumberTransparent()
 end
 
 function TestConstructors:testVector2()
-	local v = rl.Vector2(3.5, 7.25)
+	local v = rl.vector2(3.5, 7.25)
 	lu.assertAlmostEquals(v.x, 3.5, EPS)
 	lu.assertAlmostEquals(v.y, 7.25, EPS)
 end
 
 function TestConstructors:testVector2Defaults()
-	local v = rl.Vector2()
+	local v = rl.vector2()
 	lu.assertAlmostEquals(v.x, 0, EPS)
 	lu.assertAlmostEquals(v.y, 0, EPS)
 end
 
 function TestConstructors:testVector3()
-	local v = rl.Vector3(1.0, 2.0, 3.0)
+	local v = rl.vector3(1.0, 2.0, 3.0)
 	lu.assertAlmostEquals(v.x, 1.0, EPS)
 	lu.assertAlmostEquals(v.y, 2.0, EPS)
 	lu.assertAlmostEquals(v.z, 3.0, EPS)
 end
 
 function TestConstructors:testVector3Defaults()
-	local v = rl.Vector3()
+	local v = rl.vector3()
 	lu.assertAlmostEquals(v.x, 0, EPS)
 	lu.assertAlmostEquals(v.y, 0, EPS)
 	lu.assertAlmostEquals(v.z, 0, EPS)
 end
 
 function TestConstructors:testVector4()
-	local v = rl.Vector4(1.0, 2.0, 3.0, 4.0)
+	local v = rl.vector4(1.0, 2.0, 3.0, 4.0)
 	lu.assertAlmostEquals(v.x, 1.0, EPS)
 	lu.assertAlmostEquals(v.y, 2.0, EPS)
 	lu.assertAlmostEquals(v.z, 3.0, EPS)
@@ -225,7 +225,7 @@ function TestConstructors:testVector4()
 end
 
 function TestConstructors:testVector4Defaults()
-	local v = rl.Vector4()
+	local v = rl.vector4()
 	lu.assertAlmostEquals(v.x, 0, EPS)
 	lu.assertAlmostEquals(v.y, 0, EPS)
 	lu.assertAlmostEquals(v.z, 0, EPS)
@@ -233,7 +233,7 @@ function TestConstructors:testVector4Defaults()
 end
 
 function TestConstructors:testRectangle()
-	local r = rl.Rectangle(10.0, 20.0, 100.0, 50.0)
+	local r = rl.rectangle(10.0, 20.0, 100.0, 50.0)
 	lu.assertAlmostEquals(r.x, 10.0, EPS)
 	lu.assertAlmostEquals(r.y, 20.0, EPS)
 	lu.assertAlmostEquals(r.width, 100.0, EPS)
@@ -241,7 +241,7 @@ function TestConstructors:testRectangle()
 end
 
 function TestConstructors:testRectangleDefaults()
-	local r = rl.Rectangle()
+	local r = rl.rectangle()
 	lu.assertAlmostEquals(r.x, 0, EPS)
 	lu.assertAlmostEquals(r.y, 0, EPS)
 	lu.assertAlmostEquals(r.width, 0, EPS)
@@ -249,7 +249,7 @@ function TestConstructors:testRectangleDefaults()
 end
 
 function TestConstructors:testCamera2DDefaults()
-	local cam = rl.Camera2D()
+	local cam = rl.camera_2d()
 	lu.assertAlmostEquals(cam.offset.x, 0, EPS)
 	lu.assertAlmostEquals(cam.offset.y, 0, EPS)
 	lu.assertAlmostEquals(cam.target.x, 0, EPS)
@@ -259,7 +259,7 @@ function TestConstructors:testCamera2DDefaults()
 end
 
 function TestConstructors:testCamera2DCustom()
-	local cam = rl.Camera2D(rl.Vector2(400, 300), rl.Vector2(100, 200), 45.0, 2.0)
+	local cam = rl.camera_2d(rl.vector2(400, 300), rl.vector2(100, 200), 45.0, 2.0)
 	lu.assertAlmostEquals(cam.offset.x, 400, EPS)
 	lu.assertAlmostEquals(cam.offset.y, 300, EPS)
 	lu.assertAlmostEquals(cam.target.x, 100, EPS)
@@ -269,9 +269,9 @@ function TestConstructors:testCamera2DCustom()
 end
 
 function TestConstructors:testCamera3DDefaults()
-	local pos = rl.Vector3(10, 10, 10)
-	local target = rl.Vector3(0, 0, 0)
-	local cam = rl.Camera3D(pos, target)
+	local pos = rl.vector3(10, 10, 10)
+	local target = rl.vector3(0, 0, 0)
+	local cam = rl.camera_3d(pos, target)
 	lu.assertAlmostEquals(cam.position.x, 10, EPS)
 	lu.assertAlmostEquals(cam.up.y, 1.0, EPS)
 	lu.assertAlmostEquals(cam.fovy, 45.0, EPS)
@@ -279,20 +279,20 @@ function TestConstructors:testCamera3DDefaults()
 end
 
 function TestConstructors:testCamera3DCustom()
-	local cam = rl.Camera3D(rl.Vector3(5, 5, 5), rl.Vector3(0, 1, 0), rl.Vector3(0, 0, 1), 60.0, 1)
+	local cam = rl.camera_3d(rl.vector3(5, 5, 5), rl.vector3(0, 1, 0), rl.vector3(0, 0, 1), 60.0, 1)
 	lu.assertAlmostEquals(cam.up.z, 1, EPS)
 	lu.assertAlmostEquals(cam.fovy, 60.0, EPS)
 	lu.assertEquals(cam.projection, 1)
 end
 
 function TestConstructors:testRay()
-	local r = rl.Ray(rl.Vector3(0, 0, 0), rl.Vector3(1, 0, 0))
+	local r = rl.ray(rl.vector3(0, 0, 0), rl.vector3(1, 0, 0))
 	lu.assertAlmostEquals(r.position.x, 0, EPS)
 	lu.assertAlmostEquals(r.direction.x, 1, EPS)
 end
 
 function TestConstructors:testBoundingBox()
-	local bb = rl.BoundingBox(rl.Vector3(-1, -1, -1), rl.Vector3(1, 1, 1))
+	local bb = rl.bounding_box(rl.vector3(-1, -1, -1), rl.vector3(1, 1, 1))
 	lu.assertAlmostEquals(bb.min.x, -1, EPS)
 	lu.assertAlmostEquals(bb.max.x, 1, EPS)
 end
@@ -547,19 +547,19 @@ end
 TestTostring = {}
 
 function TestTostring:test_vector2()
-	lu.assertEquals(tostring(rl.Vector2(1.5, 2.5)), "Vector2(1.500, 2.500)")
+	lu.assertEquals(tostring(rl.vector2(1.5, 2.5)), "Vector2(1.500, 2.500)")
 end
 function TestTostring:test_vector3()
-	lu.assertEquals(tostring(rl.Vector3(1, 2, 3)), "Vector3(1.000, 2.000, 3.000)")
+	lu.assertEquals(tostring(rl.vector3(1, 2, 3)), "Vector3(1.000, 2.000, 3.000)")
 end
 function TestTostring:test_vector4()
-	lu.assertEquals(tostring(rl.Vector4(1, 2, 3, 4)), "Vector4(1.000, 2.000, 3.000, 4.000)")
+	lu.assertEquals(tostring(rl.vector4(1, 2, 3, 4)), "Vector4(1.000, 2.000, 3.000, 4.000)")
 end
 function TestTostring:test_color()
-	lu.assertEquals(tostring(rl.Color(255, 0, 128, 255)), "Color(255, 0, 128, 255)")
+	lu.assertEquals(tostring(rl.color(255, 0, 128, 255)), "Color(255, 0, 128, 255)")
 end
 function TestTostring:test_rectangle()
-	lu.assertEquals(tostring(rl.Rectangle(10, 20, 100, 200)), "Rectangle(10.0, 20.0, 100.0, 200.0)")
+	lu.assertEquals(tostring(rl.rectangle(10, 20, 100, 200)), "Rectangle(10.0, 20.0, 100.0, 200.0)")
 end
 
 -- ============================================================================
@@ -585,10 +585,10 @@ function TestUtilities:test_ref_float()
 	lu.assertTrue(approx(ptr[0], 3.14))
 end
 function TestUtilities:test_istype_true()
-	lu.assertTrue(rl.istype("Vector2", rl.Vector2(1, 2)))
+	lu.assertTrue(rl.istype("Vector2", rl.vector2(1, 2)))
 end
 function TestUtilities:test_istype_false()
-	lu.assertFalse(rl.istype("Vector3", rl.Vector2(1, 2)))
+	lu.assertFalse(rl.istype("Vector3", rl.vector2(1, 2)))
 end
 function TestUtilities:test_sizeof_vector2()
 	lu.assertEquals(rl.sizeof("Vector2"), 8)
@@ -641,37 +641,37 @@ end
 TestCollision2D = {}
 
 function TestCollision2D:testCheckCollisionRecsOverlap()
-	lu.assertTrue(rl.check_collision_recs(rl.Rectangle(0, 0, 10, 10), rl.Rectangle(5, 5, 10, 10)))
+	lu.assertTrue(rl.check_collision_recs(rl.rectangle(0, 0, 10, 10), rl.rectangle(5, 5, 10, 10)))
 end
 function TestCollision2D:testCheckCollisionRecsNoOverlap()
-	lu.assertFalse(rl.check_collision_recs(rl.Rectangle(0, 0, 10, 10), rl.Rectangle(20, 20, 10, 10)))
+	lu.assertFalse(rl.check_collision_recs(rl.rectangle(0, 0, 10, 10), rl.rectangle(20, 20, 10, 10)))
 end
 function TestCollision2D:testCheckCollisionCirclesOverlap()
-	lu.assertTrue(rl.check_collision_circles(rl.Vector2(0, 0), 5, rl.Vector2(3, 0), 5))
+	lu.assertTrue(rl.check_collision_circles(rl.vector2(0, 0), 5, rl.vector2(3, 0), 5))
 end
 function TestCollision2D:testCheckCollisionCirclesNoOverlap()
-	lu.assertFalse(rl.check_collision_circles(rl.Vector2(0, 0), 5, rl.Vector2(100, 0), 5))
+	lu.assertFalse(rl.check_collision_circles(rl.vector2(0, 0), 5, rl.vector2(100, 0), 5))
 end
 function TestCollision2D:testCheckCollisionCircleRecOverlap()
-	lu.assertTrue(rl.check_collision_circle_rec(rl.Vector2(5, 5), 5, rl.Rectangle(0, 0, 10, 10)))
+	lu.assertTrue(rl.check_collision_circle_rec(rl.vector2(5, 5), 5, rl.rectangle(0, 0, 10, 10)))
 end
 function TestCollision2D:testCheckCollisionCircleRecNoOverlap()
-	lu.assertFalse(rl.check_collision_circle_rec(rl.Vector2(50, 50), 1, rl.Rectangle(0, 0, 10, 10)))
+	lu.assertFalse(rl.check_collision_circle_rec(rl.vector2(50, 50), 1, rl.rectangle(0, 0, 10, 10)))
 end
 function TestCollision2D:testCheckCollisionPointRecInside()
-	lu.assertTrue(rl.check_collision_point_rec(rl.Vector2(5, 5), rl.Rectangle(0, 0, 10, 10)))
+	lu.assertTrue(rl.check_collision_point_rec(rl.vector2(5, 5), rl.rectangle(0, 0, 10, 10)))
 end
 function TestCollision2D:testCheckCollisionPointRecOutside()
-	lu.assertFalse(rl.check_collision_point_rec(rl.Vector2(50, 50), rl.Rectangle(0, 0, 10, 10)))
+	lu.assertFalse(rl.check_collision_point_rec(rl.vector2(50, 50), rl.rectangle(0, 0, 10, 10)))
 end
 function TestCollision2D:testCheckCollisionPointCircleInside()
-	lu.assertTrue(rl.check_collision_point_circle(rl.Vector2(1, 1), rl.Vector2(0, 0), 5))
+	lu.assertTrue(rl.check_collision_point_circle(rl.vector2(1, 1), rl.vector2(0, 0), 5))
 end
 function TestCollision2D:testCheckCollisionPointCircleOutside()
-	lu.assertFalse(rl.check_collision_point_circle(rl.Vector2(100, 100), rl.Vector2(0, 0), 5))
+	lu.assertFalse(rl.check_collision_point_circle(rl.vector2(100, 100), rl.vector2(0, 0), 5))
 end
 function TestCollision2D:testGetCollisionRec()
-	local col = rl.get_collision_rec(rl.Rectangle(0, 0, 10, 10), rl.Rectangle(5, 5, 10, 10))
+	local col = rl.get_collision_rec(rl.rectangle(0, 0, 10, 10), rl.rectangle(5, 5, 10, 10))
 	lu.assertAlmostEquals(col.x, 5, EPS)
 	lu.assertAlmostEquals(col.y, 5, EPS)
 	lu.assertAlmostEquals(col.width, 5, EPS)
@@ -679,12 +679,12 @@ function TestCollision2D:testGetCollisionRec()
 end
 function TestCollision2D:testCheckCollisionPointTriangleInside()
 	lu.assertTrue(
-		rl.check_collision_point_triangle(rl.Vector2(1, 1), rl.Vector2(0, 0), rl.Vector2(10, 0), rl.Vector2(0, 10))
+		rl.check_collision_point_triangle(rl.vector2(1, 1), rl.vector2(0, 0), rl.vector2(10, 0), rl.vector2(0, 10))
 	)
 end
 function TestCollision2D:testCheckCollisionPointTriangleOutside()
 	lu.assertFalse(
-		rl.check_collision_point_triangle(rl.Vector2(50, 50), rl.Vector2(0, 0), rl.Vector2(10, 0), rl.Vector2(0, 10))
+		rl.check_collision_point_triangle(rl.vector2(50, 50), rl.vector2(0, 0), rl.vector2(10, 0), rl.vector2(0, 10))
 	)
 end
 
@@ -694,38 +694,38 @@ end
 TestCollision3D = {}
 
 function TestCollision3D:testCheckCollisionSpheresOverlap()
-	lu.assertTrue(rl.check_collision_spheres(rl.Vector3(0, 0, 0), 5, rl.Vector3(3, 0, 0), 5))
+	lu.assertTrue(rl.check_collision_spheres(rl.vector3(0, 0, 0), 5, rl.vector3(3, 0, 0), 5))
 end
 function TestCollision3D:testCheckCollisionSpheresNoOverlap()
-	lu.assertFalse(rl.check_collision_spheres(rl.Vector3(0, 0, 0), 5, rl.Vector3(100, 0, 0), 5))
+	lu.assertFalse(rl.check_collision_spheres(rl.vector3(0, 0, 0), 5, rl.vector3(100, 0, 0), 5))
 end
 function TestCollision3D:testCheckCollisionBoxesOverlap()
-	local b1 = rl.BoundingBox(rl.Vector3(0, 0, 0), rl.Vector3(10, 10, 10))
-	local b2 = rl.BoundingBox(rl.Vector3(5, 5, 5), rl.Vector3(15, 15, 15))
+	local b1 = rl.bounding_box(rl.vector3(0, 0, 0), rl.vector3(10, 10, 10))
+	local b2 = rl.bounding_box(rl.vector3(5, 5, 5), rl.vector3(15, 15, 15))
 	lu.assertTrue(rl.check_collision_boxes(b1, b2))
 end
 function TestCollision3D:testCheckCollisionBoxesNoOverlap()
-	local b1 = rl.BoundingBox(rl.Vector3(0, 0, 0), rl.Vector3(10, 10, 10))
-	local b2 = rl.BoundingBox(rl.Vector3(50, 50, 50), rl.Vector3(60, 60, 60))
+	local b1 = rl.bounding_box(rl.vector3(0, 0, 0), rl.vector3(10, 10, 10))
+	local b2 = rl.bounding_box(rl.vector3(50, 50, 50), rl.vector3(60, 60, 60))
 	lu.assertFalse(rl.check_collision_boxes(b1, b2))
 end
 function TestCollision3D:testCheckCollisionBoxSphereOverlap()
-	local box = rl.BoundingBox(rl.Vector3(0, 0, 0), rl.Vector3(10, 10, 10))
-	lu.assertTrue(rl.check_collision_box_sphere(box, rl.Vector3(5, 5, 5), 5))
+	local box = rl.bounding_box(rl.vector3(0, 0, 0), rl.vector3(10, 10, 10))
+	lu.assertTrue(rl.check_collision_box_sphere(box, rl.vector3(5, 5, 5), 5))
 end
 function TestCollision3D:testGetRayCollisionSphereHit()
-	local ray = rl.Ray(rl.Vector3(0, 0, 0), rl.Vector3(1, 0, 0))
-	local result = rl.get_ray_collision_sphere(ray, rl.Vector3(10, 0, 0), 5)
+	local ray = rl.ray(rl.vector3(0, 0, 0), rl.vector3(1, 0, 0))
+	local result = rl.get_ray_collision_sphere(ray, rl.vector3(10, 0, 0), 5)
 	lu.assertTrue(result.hit)
 end
 function TestCollision3D:testGetRayCollisionSphereMiss()
-	local ray = rl.Ray(rl.Vector3(0, 0, 0), rl.Vector3(1, 0, 0))
-	local result = rl.get_ray_collision_sphere(ray, rl.Vector3(0, 100, 0), 1)
+	local ray = rl.ray(rl.vector3(0, 0, 0), rl.vector3(1, 0, 0))
+	local result = rl.get_ray_collision_sphere(ray, rl.vector3(0, 100, 0), 1)
 	lu.assertFalse(result.hit)
 end
 function TestCollision3D:testGetRayCollisionBoxHit()
-	local ray = rl.Ray(rl.Vector3(0, 0, 0), rl.Vector3(1, 0, 0))
-	local box = rl.BoundingBox(rl.Vector3(5, -5, -5), rl.Vector3(15, 5, 5))
+	local ray = rl.ray(rl.vector3(0, 0, 0), rl.vector3(1, 0, 0))
+	local box = rl.bounding_box(rl.vector3(5, -5, -5), rl.vector3(15, 5, 5))
 	lu.assertTrue(rl.get_ray_collision_box(ray, box).hit)
 end
 
@@ -1035,7 +1035,7 @@ function TestSnakeCaseConversion:testSnakeCaseResultsMatchCamelCase()
 	lu.assertEquals(snake_result, direct_result)
 
 	-- Test color conversion
-	local c = rl.Color(255, 128, 64, 255)
+	local c = rl.color(255, 128, 64, 255)
 	local sc = rl.color_to_int(c)
 	local dc = rl.lib.ColorToInt(c)
 	lu.assertEquals(sc, dc)
