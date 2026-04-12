@@ -890,6 +890,7 @@ end
 TestWindowIntegration = {}
 
 function TestWindowIntegration:testAllWindowFunctions()
+	rl.set_trace_log_level(rl.TraceLogLevel.LOG_WARNING)
 	rl.init_window(100, 100, "Test Window")
 
 	-- Window state

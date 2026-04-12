@@ -39,4 +39,4 @@ make test  # Run all tests
 
 ## License
 
-MIT - see LICENSE
+Modified Public Domain - see LICENSE
