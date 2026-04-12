@@ -17,74 +17,74 @@ end
 -- ============================================================================
 -- Raymath Scalar Functions
 -- ============================================================================
-TestRaymathScalar = {}
+test_raymath_scalar = {}
 
-function TestRaymathScalar:testClampInRange()
+function test_raymath_scalar:test_clamp_in_range()
 	lu.assertEquals(rm.clamp(5.0, 0.0, 10.0), 5.0)
 end
 
-function TestRaymathScalar:testClampBelowMin()
+function test_raymath_scalar:test_clamp_below_min()
 	lu.assertEquals(rm.clamp(-5.0, 0.0, 10.0), 0.0)
 end
 
-function TestRaymathScalar:testClampAboveMax()
+function test_raymath_scalar:test_clamp_above_max()
 	lu.assertEquals(rm.clamp(15.0, 0.0, 10.0), 10.0)
 end
 
-function TestRaymathScalar:testLerpMidpoint()
+function test_raymath_scalar:test_lerp_midpoint()
 	lu.assertTrue(approx(rm.lerp(0.0, 10.0, 0.5), 5.0))
 end
 
-function TestRaymathScalar:testLerpStart()
+function test_raymath_scalar:test_lerp_start()
 	lu.assertTrue(approx(rm.lerp(0.0, 10.0, 0.0), 0.0))
 end
 
-function TestRaymathScalar:testLerpEnd()
+function test_raymath_scalar:test_lerp_end()
 	lu.assertTrue(approx(rm.lerp(0.0, 10.0, 1.0), 10.0))
 end
 
-function TestRaymathScalar:testNormalizeMid()
+function test_raymath_scalar:test_normalize_mid()
 	lu.assertTrue(approx(rm.normalize(5.0, 0.0, 10.0), 0.5))
 end
 
-function TestRaymathScalar:testRemap()
+function test_raymath_scalar:test_remap()
 	lu.assertTrue(approx(rm.remap(5.0, 0.0, 10.0, 0.0, 100.0), 50.0))
 end
 
-function TestRaymathScalar:testWrapAbove()
+function test_raymath_scalar:test_wrap_above()
 	lu.assertTrue(approx(rm.wrap(12.0, 0.0, 10.0), 2.0))
 end
 
-function TestRaymathScalar:testWrapBelow()
+function test_raymath_scalar:test_wrap_below()
 	lu.assertTrue(approx(rm.wrap(-2.0, 0.0, 10.0), 8.0))
 end
 
-function TestRaymathScalar:testFloatEqualsTrue()
+function test_raymath_scalar:test_float_equals_true()
 	lu.assertEquals(rm.float_equals(1.0, 1.0000001), 1)
 end
 
-function TestRaymathScalar:testFloatEqualsFalse()
+function test_raymath_scalar:test_float_equals_false()
 	lu.assertEquals(rm.float_equals(1.0, 2.0), 0)
 end
 
 -- ============================================================================
 -- Vector2 Math Functions
 -- ============================================================================
-TestVector2Math = {}
+test_vector2_math = {}
 
-function TestVector2Math:testVector2Zero()
+function test_vector2_math:test_vector2_zero()
 	local v = rm.vector2_zero()
 	lu.assertEquals(v.x, 0.0)
 	lu.assertEquals(v.y, 0.0)
 end
 
-function TestVector2Math:testVector2One()
+function test_vector2_math:test_vector2_one()
 	local v = rm.vector2_one()
 	lu.assertEquals(v.x, 1.0)
 	lu.assertEquals(v.y, 1.0)
 end
 
-function TestVector2Math:testVector2Add()
+function test_vector2_math:test_vector2_add()
 	local v1 = rm.vector2(1, 2)
 	local v2 = rm.vector2(3, 4)
 	local result = rm.vector2_add(v1, v2)
@@ -92,7 +92,7 @@ function TestVector2Math:testVector2Add()
 	lu.assertTrue(approx(result.y, 6.0))
 end
 
-function TestVector2Math:testVector2Subtract()
+function test_vector2_math:test_vector2_subtract()
 	local v1 = rm.vector2(5, 5)
 	local v2 = rm.vector2(2, 3)
 	local result = rm.vector2_subtract(v1, v2)
@@ -100,55 +100,55 @@ function TestVector2Math:testVector2Subtract()
 	lu.assertTrue(approx(result.y, 2.0))
 end
 
-function TestVector2Math:testVector2Scale()
+function test_vector2_math:test_vector2_scale()
 	local v = rm.vector2(2, 3)
 	local result = rm.vector2_scale(v, 2.0)
 	lu.assertTrue(approx(result.x, 4.0))
 	lu.assertTrue(approx(result.y, 6.0))
 end
 
-function TestVector2Math:testVector2Length()
+function test_vector2_math:test_vector2_length()
 	local v = rm.vector2(3, 4)
 	lu.assertTrue(approx(rm.vector2_length(v), 5.0))
 end
 
-function TestVector2Math:testVector2LengthSqr()
+function test_vector2_math:test_vector2_length_sqr()
 	local v = rm.vector2(3, 4)
 	lu.assertTrue(approx(rm.vector2_length_sqr(v), 25.0))
 end
 
-function TestVector2Math:testVector2DotProductPerpendicular()
+function test_vector2_math:test_vector2_dot_product_perpendicular()
 	local v1 = rm.vector2(1, 0)
 	local v2 = rm.vector2(0, 1)
 	lu.assertTrue(approx(rm.vector2_dot_product(v1, v2), 0.0))
 end
 
-function TestVector2Math:testVector2DotProductParallel()
+function test_vector2_math:test_vector2_dot_product_parallel()
 	local v1 = rm.vector2(1, 0)
 	local v2 = rm.vector2(2, 0)
 	lu.assertTrue(approx(rm.vector2_dot_product(v1, v2), 2.0))
 end
 
-function TestVector2Math:testVector2Distance()
+function test_vector2_math:test_vector2_distance()
 	local v1 = rm.vector2(0, 0)
 	local v2 = rm.vector2(3, 4)
 	lu.assertTrue(approx(rm.vector2_distance(v1, v2), 5.0))
 end
 
-function TestVector2Math:testVector2Normalize()
+function test_vector2_math:test_vector2_normalize()
 	local v = rm.vector2(3, 4)
 	local result = rm.vector2_normalize(v)
 	lu.assertTrue(approx(rm.vector2_length(result), 1.0))
 end
 
-function TestVector2Math:testVector2Negate()
+function test_vector2_math:test_vector2_negate()
 	local v = rm.vector2(1, 2)
 	local result = rm.vector2_negate(v)
 	lu.assertTrue(approx(result.x, -1.0))
 	lu.assertTrue(approx(result.y, -2.0))
 end
 
-function TestVector2Math:testVector2Lerp()
+function test_vector2_math:test_vector2_lerp()
 	local v1 = rm.vector2(0, 0)
 	local v2 = rm.vector2(10, 20)
 	local result = rm.vector2_lerp(v1, v2, 0.5)
@@ -156,7 +156,7 @@ function TestVector2Math:testVector2Lerp()
 	lu.assertTrue(approx(result.y, 10.0))
 end
 
-function TestVector2Math:testVector2Reflect()
+function test_vector2_math:test_vector2_reflect()
 	local v = rm.vector2(1, -1)
 	local normal = rm.vector2(0, 1)
 	local result = rm.vector2_reflect(v, normal)
@@ -164,14 +164,14 @@ function TestVector2Math:testVector2Reflect()
 	lu.assertTrue(approx(result.y, 1.0))
 end
 
-function TestVector2Math:testVector2Rotate()
+function test_vector2_math:test_vector2_rotate()
 	local v = rm.vector2(1, 0)
 	local result = rm.vector2_rotate(v, math.pi / 2)
 	lu.assertTrue(approx(result.x, 0.0, 0.01))
 	lu.assertTrue(approx(result.y, 1.0, 0.01))
 end
 
-function TestVector2Math:testVector2Min()
+function test_vector2_math:test_vector2_min()
 	local v1 = rm.vector2(1, 5)
 	local v2 = rm.vector2(3, 2)
 	local result = rm.vector2_min(v1, v2)
@@ -179,7 +179,7 @@ function TestVector2Math:testVector2Min()
 	lu.assertEquals(result.y, 2.0)
 end
 
-function TestVector2Math:testVector2Max()
+function test_vector2_math:test_vector2_max()
 	local v1 = rm.vector2(1, 5)
 	local v2 = rm.vector2(3, 2)
 	local result = rm.vector2_max(v1, v2)
@@ -187,14 +187,14 @@ function TestVector2Math:testVector2Max()
 	lu.assertEquals(result.y, 5.0)
 end
 
-function TestVector2Math:testVector2Invert()
+function test_vector2_math:test_vector2_invert()
 	local v = rm.vector2(2, 4)
 	local result = rm.vector2_invert(v)
 	lu.assertTrue(approx(result.x, 0.5))
 	lu.assertTrue(approx(result.y, 0.25))
 end
 
-function TestVector2Math:testVector2Equals()
+function test_vector2_math:test_vector2_equals()
 	local v1 = rm.vector2(1.0, 2.0)
 	local v2 = rm.vector2(1.0, 2.0)
 	lu.assertEquals(rm.vector2_equals(v1, v2), 1)
@@ -203,23 +203,23 @@ end
 -- ============================================================================
 -- Vector3 Math Functions
 -- ============================================================================
-TestVector3Math = {}
+test_vector3_math = {}
 
-function TestVector3Math:testVector3Zero()
+function test_vector3_math:test_vector3_zero()
 	local v = rm.vector3_zero()
 	lu.assertEquals(v.x, 0.0)
 	lu.assertEquals(v.y, 0.0)
 	lu.assertEquals(v.z, 0.0)
 end
 
-function TestVector3Math:testVector3One()
+function test_vector3_math:test_vector3_one()
 	local v = rm.vector3_one()
 	lu.assertEquals(v.x, 1.0)
 	lu.assertEquals(v.y, 1.0)
 	lu.assertEquals(v.z, 1.0)
 end
 
-function TestVector3Math:testVector3Add()
+function test_vector3_math:test_vector3_add()
 	local v1 = rm.vector3(1, 2, 3)
 	local v2 = rm.vector3(4, 5, 6)
 	local result = rm.vector3_add(v1, v2)
@@ -228,7 +228,7 @@ function TestVector3Math:testVector3Add()
 	lu.assertTrue(approx(result.z, 9.0))
 end
 
-function TestVector3Math:testVector3Subtract()
+function test_vector3_math:test_vector3_subtract()
 	local v1 = rm.vector3(5, 5, 5)
 	local v2 = rm.vector3(2, 3, 4)
 	local result = rm.vector3_subtract(v1, v2)
@@ -237,7 +237,7 @@ function TestVector3Math:testVector3Subtract()
 	lu.assertTrue(approx(result.z, 1.0))
 end
 
-function TestVector3Math:testVector3Scale()
+function test_vector3_math:test_vector3_scale()
 	local v = rm.vector3(1, 2, 3)
 	local result = rm.vector3_scale(v, 2.0)
 	lu.assertTrue(approx(result.x, 2.0))
@@ -245,18 +245,18 @@ function TestVector3Math:testVector3Scale()
 	lu.assertTrue(approx(result.z, 6.0))
 end
 
-function TestVector3Math:testVector3Length()
+function test_vector3_math:test_vector3_length()
 	local v = rm.vector3(1, 2, 2)
 	lu.assertTrue(approx(rm.vector3_length(v), 3.0))
 end
 
-function TestVector3Math:testVector3DotProduct()
+function test_vector3_math:test_vector3_dot_product()
 	local v1 = rm.vector3(1, 0, 0)
 	local v2 = rm.vector3(0, 1, 0)
 	lu.assertTrue(approx(rm.vector3_dot_product(v1, v2), 0.0))
 end
 
-function TestVector3Math:testVector3CrossProduct()
+function test_vector3_math:test_vector3_cross_product()
 	local v1 = rm.vector3(1, 0, 0)
 	local v2 = rm.vector3(0, 1, 0)
 	local result = rm.vector3_cross_product(v1, v2)
@@ -265,19 +265,19 @@ function TestVector3Math:testVector3CrossProduct()
 	lu.assertTrue(approx(result.z, 1.0))
 end
 
-function TestVector3Math:testVector3Distance()
+function test_vector3_math:test_vector3_distance()
 	local v1 = rm.vector3(0, 0, 0)
 	local v2 = rm.vector3(1, 2, 2)
 	lu.assertTrue(approx(rm.vector3_distance(v1, v2), 3.0))
 end
 
-function TestVector3Math:testVector3Normalize()
+function test_vector3_math:test_vector3_normalize()
 	local v = rm.vector3(1, 2, 2)
 	local result = rm.vector3_normalize(v)
 	lu.assertTrue(approx(rm.vector3_length(result), 1.0))
 end
 
-function TestVector3Math:testVector3Negate()
+function test_vector3_math:test_vector3_negate()
 	local v = rm.vector3(1, 2, 3)
 	local result = rm.vector3_negate(v)
 	lu.assertTrue(approx(result.x, -1.0))
@@ -285,7 +285,7 @@ function TestVector3Math:testVector3Negate()
 	lu.assertTrue(approx(result.z, -3.0))
 end
 
-function TestVector3Math:testVector3Lerp()
+function test_vector3_math:test_vector3_lerp()
 	local v1 = rm.vector3(0, 0, 0)
 	local v2 = rm.vector3(10, 20, 30)
 	local result = rm.vector3_lerp(v1, v2, 0.5)
@@ -294,7 +294,7 @@ function TestVector3Math:testVector3Lerp()
 	lu.assertTrue(approx(result.z, 15.0))
 end
 
-function TestVector3Math:testVector3Reflect()
+function test_vector3_math:test_vector3_reflect()
 	local v = rm.vector3(1, -1, 0)
 	local normal = rm.vector3(0, 1, 0)
 	local result = rm.vector3_reflect(v, normal)
@@ -303,7 +303,7 @@ function TestVector3Math:testVector3Reflect()
 	lu.assertTrue(approx(result.z, 0.0))
 end
 
-function TestVector3Math:testVector3Min()
+function test_vector3_math:test_vector3_min()
 	local v1 = rm.vector3(1, 5, 3)
 	local v2 = rm.vector3(4, 2, 6)
 	local result = rm.vector3_min(v1, v2)
@@ -312,7 +312,7 @@ function TestVector3Math:testVector3Min()
 	lu.assertEquals(result.z, 3.0)
 end
 
-function TestVector3Math:testVector3Max()
+function test_vector3_math:test_vector3_max()
 	local v1 = rm.vector3(1, 5, 3)
 	local v2 = rm.vector3(4, 2, 6)
 	local result = rm.vector3_max(v1, v2)
@@ -321,7 +321,7 @@ function TestVector3Math:testVector3Max()
 	lu.assertEquals(result.z, 6.0)
 end
 
-function TestVector3Math:testVector3Invert()
+function test_vector3_math:test_vector3_invert()
 	local v = rm.vector3(2, 4, 5)
 	local result = rm.vector3_invert(v)
 	lu.assertTrue(approx(result.x, 0.5))
@@ -329,13 +329,13 @@ function TestVector3Math:testVector3Invert()
 	lu.assertTrue(approx(result.z, 0.2))
 end
 
-function TestVector3Math:testVector3Equals()
+function test_vector3_math:test_vector3_equals()
 	local v1 = rm.vector3(1.0, 2.0, 3.0)
 	local v2 = rm.vector3(1.0, 2.0, 3.0)
 	lu.assertEquals(rm.vector3_equals(v1, v2), 1)
 end
 
-function TestVector3Math:testVector3MoveTowards()
+function test_vector3_math:test_vector3_move_towards()
 	local v = rm.vector3(0, 0, 0)
 	local target = rm.vector3(10, 0, 0)
 	local result = rm.vector3_move_towards(v, target, 3.0)
@@ -347,9 +347,9 @@ end
 -- ============================================================================
 -- Vector4 Math Functions
 -- ============================================================================
-TestVector4Math = {}
+test_vector4_math = {}
 
-function TestVector4Math:testVector4Zero()
+function test_vector4_math:test_vector4_zero()
 	local v = rm.vector4_zero()
 	lu.assertEquals(v.x, 0.0)
 	lu.assertEquals(v.y, 0.0)
@@ -357,7 +357,7 @@ function TestVector4Math:testVector4Zero()
 	lu.assertEquals(v.w, 0.0)
 end
 
-function TestVector4Math:testVector4One()
+function test_vector4_math:test_vector4_one()
 	local v = rm.vector4_one()
 	lu.assertEquals(v.x, 1.0)
 	lu.assertEquals(v.y, 1.0)
@@ -365,7 +365,7 @@ function TestVector4Math:testVector4One()
 	lu.assertEquals(v.w, 1.0)
 end
 
-function TestVector4Math:testVector4Add()
+function test_vector4_math:test_vector4_add()
 	local v1 = rm.vector4(1, 2, 3, 4)
 	local v2 = rm.vector4(5, 6, 7, 8)
 	local result = rm.vector4_add(v1, v2)
@@ -375,7 +375,7 @@ function TestVector4Math:testVector4Add()
 	lu.assertTrue(approx(result.w, 12.0))
 end
 
-function TestVector4Math:testVector4Scale()
+function test_vector4_math:test_vector4_scale()
 	local v = rm.vector4(1, 2, 3, 4)
 	local result = rm.vector4_scale(v, 2.0)
 	lu.assertTrue(approx(result.x, 2.0))
@@ -384,18 +384,18 @@ function TestVector4Math:testVector4Scale()
 	lu.assertTrue(approx(result.w, 8.0))
 end
 
-function TestVector4Math:testVector4Length()
+function test_vector4_math:test_vector4_length()
 	local v = rm.vector4(1, 2, 2, 2)
 	lu.assertTrue(approx(rm.vector4_length(v), 3.60555, 0.01))
 end
 
-function TestVector4Math:testVector4Normalize()
+function test_vector4_math:test_vector4_normalize()
 	local v = rm.vector4(1, 2, 2, 4)
 	local result = rm.vector4_normalize(v)
 	lu.assertTrue(approx(rm.vector4_length(result), 1.0, 0.01))
 end
 
-function TestVector4Math:testVector4Lerp()
+function test_vector4_math:test_vector4_lerp()
 	local v1 = rm.vector4(0, 0, 0, 0)
 	local v2 = rm.vector4(10, 20, 30, 40)
 	local result = rm.vector4_lerp(v1, v2, 0.5)
@@ -405,19 +405,19 @@ function TestVector4Math:testVector4Lerp()
 	lu.assertTrue(approx(result.w, 20.0))
 end
 
-function TestVector4Math:testVector4Equals()
+function test_vector4_math:test_vector4_equals()
 	local v1 = rm.vector4(1.0, 2.0, 3.0, 4.0)
 	local v2 = rm.vector4(1.0, 2.0, 3.0, 4.0)
 	lu.assertEquals(rm.vector4_equals(v1, v2), 1)
 end
 
-function TestVector4Math:testVector4DotProduct()
+function test_vector4_math:test_vector4_dot_product()
 	local v1 = rm.vector4(1, 0, 0, 0)
 	local v2 = rm.vector4(0, 1, 0, 0)
 	lu.assertTrue(approx(rm.vector4_dot_product(v1, v2), 0.0))
 end
 
-function TestVector4Math:testVector4Min()
+function test_vector4_math:test_vector4_min()
 	local v1 = rm.vector4(1, 5, 3, 7)
 	local v2 = rm.vector4(4, 2, 6, 0)
 	local result = rm.vector4_min(v1, v2)
@@ -427,7 +427,7 @@ function TestVector4Math:testVector4Min()
 	lu.assertEquals(result.w, 0.0)
 end
 
-function TestVector4Math:testVector4Max()
+function test_vector4_math:test_vector4_max()
 	local v1 = rm.vector4(1, 5, 3, 7)
 	local v2 = rm.vector4(4, 2, 6, 0)
 	local result = rm.vector4_max(v1, v2)
@@ -440,9 +440,9 @@ end
 -- ============================================================================
 -- Matrix Math Functions
 -- ============================================================================
-TestMatrixMath = {}
+test_matrix_math = {}
 
-function TestMatrixMath:testMatrixIdentity()
+function test_matrix_math:test_matrix_identity()
 	local m = rm.matrix_identity()
 	lu.assertTrue(approx(m.m0, 1.0))
 	lu.assertTrue(approx(m.m5, 1.0))
@@ -451,21 +451,21 @@ function TestMatrixMath:testMatrixIdentity()
 	lu.assertTrue(approx(m.m1, 0.0))
 end
 
-function TestMatrixMath:testMatrixTranslate()
+function test_matrix_math:test_matrix_translate()
 	local m = rm.matrix_translate(1, 2, 3)
 	lu.assertTrue(approx(m.m12, 1.0))
 	lu.assertTrue(approx(m.m13, 2.0))
 	lu.assertTrue(approx(m.m14, 3.0))
 end
 
-function TestMatrixMath:testMatrixScale()
+function test_matrix_math:test_matrix_scale()
 	local m = rm.matrix_scale(2, 3, 4)
 	lu.assertTrue(approx(m.m0, 2.0))
 	lu.assertTrue(approx(m.m5, 3.0))
 	lu.assertTrue(approx(m.m10, 4.0))
 end
 
-function TestMatrixMath:testMatrixMultiplyIdentity()
+function test_matrix_math:test_matrix_multiply_identity()
 	local m1 = rm.matrix_identity()
 	local m2 = rm.matrix_identity()
 	local result = rm.matrix_multiply(m1, m2)
@@ -473,22 +473,22 @@ function TestMatrixMath:testMatrixMultiplyIdentity()
 	lu.assertTrue(approx(result.m5, 1.0))
 end
 
-function TestMatrixMath:testMatrixDeterminantIdentity()
+function test_matrix_math:test_matrix_determinant_identity()
 	local m = rm.matrix_identity()
 	lu.assertTrue(approx(rm.matrix_determinant(m), 1.0))
 end
 
-function TestMatrixMath:testMatrixDeterminantScale()
+function test_matrix_math:test_matrix_determinant_scale()
 	local m = rm.matrix_scale(2, 3, 4)
 	lu.assertTrue(approx(rm.matrix_determinant(m), 24.0))
 end
 
-function TestMatrixMath:testMatrixTraceIdentity()
+function test_matrix_math:test_matrix_trace_identity()
 	local m = rm.matrix_identity()
 	lu.assertTrue(approx(rm.matrix_trace(m), 4.0))
 end
 
-function TestMatrixMath:testMatrixTranspose()
+function test_matrix_math:test_matrix_transpose()
 	local m = rm.matrix()
 	m.m1 = 1.0
 	m.m4 = 2.0
@@ -497,36 +497,36 @@ function TestMatrixMath:testMatrixTranspose()
 	lu.assertTrue(approx(result.m1, 2.0))
 end
 
-function TestMatrixMath:testMatrixInvert()
+function test_matrix_math:test_matrix_invert()
 	local m = rm.matrix_scale(2, 2, 2)
 	local result = rm.matrix_invert(m)
 	lu.assertTrue(approx(result.m0, 0.5))
 	lu.assertTrue(approx(result.m5, 0.5))
 end
 
-function TestMatrixMath:testMatrixRotateXZero()
+function test_matrix_math:test_matrix_rotate_x_zero()
 	local m = rm.matrix_rotate_x(0)
 	lu.assertTrue(approx(m.m0, 1.0))
 end
 
-function TestMatrixMath:testMatrixRotateYZero()
+function test_matrix_math:test_matrix_rotate_y_zero()
 	local m = rm.matrix_rotate_y(0)
 	lu.assertTrue(approx(m.m5, 1.0))
 end
 
-function TestMatrixMath:testMatrixRotateZZero()
+function test_matrix_math:test_matrix_rotate_z_zero()
 	local m = rm.matrix_rotate_z(0)
 	lu.assertTrue(approx(m.m10, 1.0))
 end
 
-function TestMatrixMath:testMatrixAddIdentity()
+function test_matrix_math:test_matrix_add_identity()
 	local m1 = rm.matrix_identity()
 	local m2 = rm.matrix_identity()
 	local result = rm.matrix_add(m1, m2)
 	lu.assertTrue(approx(result.m0, 2.0))
 end
 
-function TestMatrixMath:testMatrixSubtractIdentity()
+function test_matrix_math:test_matrix_subtract_identity()
 	local m1 = rm.matrix_identity()
 	local m2 = rm.matrix_identity()
 	local result = rm.matrix_subtract(m1, m2)
@@ -536,9 +536,9 @@ end
 -- ============================================================================
 -- Quaternion Functions
 -- ============================================================================
-TestQuaternion = {}
+test_quaternion = {}
 
-function TestQuaternion:testQuaternionIdentity()
+function test_quaternion:test_quaternion_identity()
 	local q = rm.quaternion_identity()
 	lu.assertTrue(approx(q.x, 0.0))
 	lu.assertTrue(approx(q.y, 0.0))
@@ -546,68 +546,68 @@ function TestQuaternion:testQuaternionIdentity()
 	lu.assertTrue(approx(q.w, 1.0))
 end
 
-function TestQuaternion:testQuaternionLength()
+function test_quaternion:test_quaternion_length()
 	local q = rm.quaternion(0, 0, 0, 1)
 	lu.assertTrue(approx(rm.quaternion_length(q), 1.0))
 end
 
-function TestQuaternion:testQuaternionNormalize()
+function test_quaternion:test_quaternion_normalize()
 	local q = rm.quaternion(1, 2, 2, 4)
 	local result = rm.quaternion_normalize(q)
 	lu.assertTrue(approx(rm.quaternion_length(result), 1.0, 0.01))
 end
 
-function TestQuaternion:testQuaternionInvert()
+function test_quaternion:test_quaternion_invert()
 	local q = rm.quaternion(0, 0, 0, 1)
 	local result = rm.quaternion_invert(q)
 	lu.assertTrue(approx(result.w, 1.0))
 end
 
-function TestQuaternion:testQuaternionMultiplyIdentity()
+function test_quaternion:test_quaternion_multiply_identity()
 	local q1 = rm.quaternion_identity()
 	local q2 = rm.quaternion_identity()
 	local result = rm.quaternion_multiply(q1, q2)
 	lu.assertTrue(approx(result.w, 1.0))
 end
 
-function TestQuaternion:testQuaternionFromEulerZero()
+function test_quaternion:test_quaternion_from_euler_zero()
 	local q = rm.quaternion_from_euler(0, 0, 0)
 	lu.assertTrue(approx(q.w, 1.0))
 end
 
-function TestQuaternion:testQuaternionToEuler()
+function test_quaternion:test_quaternion_to_euler()
 	local q = rm.quaternion_identity()
 	local result = rm.quaternion_to_euler(q)
 	lu.assertTrue(approx(result.x, 0.0))
 end
 
-function TestQuaternion:testQuaternionFromAxisAngleZero()
+function test_quaternion:test_quaternion_from_axis_angle_zero()
 	local axis = rm.vector3(0, 1, 0)
 	local q = rm.quaternion_from_axis_angle(axis, 0)
 	lu.assertTrue(approx(q.w, 1.0))
 end
 
-function TestQuaternion:testQuaternionFromAxisAnglePi()
+function test_quaternion:test_quaternion_from_axis_angle_pi()
 	local axis = rm.vector3(0, 1, 0)
 	local q = rm.quaternion_from_axis_angle(axis, math.pi)
 	-- 180 degree rotation around Y
 	lu.assertTrue(approx(q.w, 0.0, 0.01))
 end
 
-function TestQuaternion:testQuaternionSlerp()
+function test_quaternion:test_quaternion_slerp()
 	local q1 = rm.quaternion_identity()
 	local q2 = rm.quaternion_from_euler(0, math.pi, 0)
 	local result = rm.quaternion_slerp(q1, q2, 0.5)
 	lu.assertTrue(approx(rm.quaternion_length(result), 1.0))
 end
 
-function TestQuaternion:testQuaternionEquals()
+function test_quaternion:test_quaternion_equals()
 	local q1 = rm.quaternion(0, 0, 0, 1)
 	local q2 = rm.quaternion(0, 0, 0, 1)
 	lu.assertEquals(rm.quaternion_equals(q1, q2), 1)
 end
 
-function TestQuaternion:testQuaternionAdd()
+function test_quaternion:test_quaternion_add()
 	local q1 = rm.quaternion(1, 0, 0, 0)
 	local q2 = rm.quaternion(0, 1, 0, 0)
 	local result = rm.quaternion_add(q1, q2)
@@ -615,14 +615,14 @@ function TestQuaternion:testQuaternionAdd()
 	lu.assertTrue(approx(result.y, 1.0))
 end
 
-function TestQuaternion:testQuaternionScale()
+function test_quaternion:test_quaternion_scale()
 	local q = rm.quaternion(1, 2, 3, 4)
 	local result = rm.quaternion_scale(q, 2.0)
 	lu.assertTrue(approx(result.x, 2.0))
 	lu.assertTrue(approx(result.y, 4.0))
 end
 
-function TestQuaternion:testQuaternionToMatrix()
+function test_quaternion:test_quaternion_to_matrix()
 	local q = rm.quaternion_identity()
 	local m = rm.quaternion_to_matrix(q)
 	lu.assertTrue(approx(m.m0, 1.0))
@@ -633,9 +633,9 @@ end
 -- ============================================================================
 -- Vector Operator Overloads (via metatypes)
 -- ============================================================================
-TestVector2Operators = {}
+test_vector2_operators = {}
 
-function TestVector2Operators:testAddVecVec()
+function test_vector2_operators:test__add_vec_vec()
 	local v1 = rm.vector2(1, 2)
 	local v2 = rm.vector2(3, 4)
 	local result = v1 + v2
@@ -643,21 +643,21 @@ function TestVector2Operators:testAddVecVec()
 	lu.assertTrue(approx(result.y, 6.0))
 end
 
-function TestVector2Operators:testAddVecNum()
+function test_vector2_operators:test__add_vec_num()
 	local v = rm.vector2(1, 2)
 	local result = v + 5
 	lu.assertTrue(approx(result.x, 6.0))
 	lu.assertTrue(approx(result.y, 7.0))
 end
 
-function TestVector2Operators:testAddNumVec()
+function test_vector2_operators:test__add_num_vec()
 	local v = rm.vector2(1, 2)
 	local result = 5 + v
 	lu.assertTrue(approx(result.x, 6.0))
 	lu.assertTrue(approx(result.y, 7.0))
 end
 
-function TestVector2Operators:testSubVecVec()
+function test_vector2_operators:test__sub_vec_vec()
 	local v1 = rm.vector2(5, 5)
 	local v2 = rm.vector2(2, 3)
 	local result = v1 - v2
@@ -665,21 +665,21 @@ function TestVector2Operators:testSubVecVec()
 	lu.assertTrue(approx(result.y, 2.0))
 end
 
-function TestVector2Operators:testSubVecNum()
+function test_vector2_operators:test__sub_vec_num()
 	local v = rm.vector2(5, 5)
 	local result = v - 2
 	lu.assertTrue(approx(result.x, 3.0))
 	lu.assertTrue(approx(result.y, 3.0))
 end
 
-function TestVector2Operators:testSubNumVec()
+function test_vector2_operators:test__sub_num_vec()
 	local v = rm.vector2(1, 2)
 	local result = 5 - v
 	lu.assertTrue(approx(result.x, 4.0))
 	lu.assertTrue(approx(result.y, 3.0))
 end
 
-function TestVector2Operators:testMulVecVec()
+function test_vector2_operators:test__mul_vec_vec()
 	local v1 = rm.vector2(2, 3)
 	local v2 = rm.vector2(4, 5)
 	local result = v1 * v2
@@ -687,21 +687,21 @@ function TestVector2Operators:testMulVecVec()
 	lu.assertTrue(approx(result.y, 15.0))
 end
 
-function TestVector2Operators:testMulVecNum()
+function test_vector2_operators:test__mul_vec_num()
 	local v = rm.vector2(2, 3)
 	local result = v * 2
 	lu.assertTrue(approx(result.x, 4.0))
 	lu.assertTrue(approx(result.y, 6.0))
 end
 
-function TestVector2Operators:testMulNumVec()
+function test_vector2_operators:test__mul_num_vec()
 	local v = rm.vector2(2, 3)
 	local result = 2 * v
 	lu.assertTrue(approx(result.x, 4.0))
 	lu.assertTrue(approx(result.y, 6.0))
 end
 
-function TestVector2Operators:testDivVecVec()
+function test_vector2_operators:test_div_vec_vec()
 	local v1 = rm.vector2(8, 15)
 	local v2 = rm.vector2(2, 3)
 	local result = v1 / v2
@@ -709,40 +709,40 @@ function TestVector2Operators:testDivVecVec()
 	lu.assertTrue(approx(result.y, 5.0))
 end
 
-function TestVector2Operators:testDivVecNum()
+function test_vector2_operators:test_div_vec_num()
 	local v = rm.vector2(8, 12)
 	local result = v / 2
 	lu.assertTrue(approx(result.x, 4.0))
 	lu.assertTrue(approx(result.y, 6.0))
 end
 
-function TestVector2Operators:testUnm()
+function test_vector2_operators:test_unm()
 	local v = rm.vector2(1, 2)
 	local result = -v
 	lu.assertTrue(approx(result.x, -1.0))
 	lu.assertTrue(approx(result.y, -2.0))
 end
 
-function TestVector2Operators:testEqSame()
+function test_vector2_operators:test_eq_same()
 	local v1 = rm.vector2(1, 2)
 	local v2 = rm.vector2(1, 2)
 	lu.assertTrue(v1 == v2)
 end
 
-function TestVector2Operators:testEqDifferent()
+function test_vector2_operators:test_eq_different()
 	local v1 = rm.vector2(1, 2)
 	local v2 = rm.vector2(3, 4)
 	lu.assertFalse(v1 == v2)
 end
 
-function TestVector2Operators:testLen()
+function test_vector2_operators:test_len()
 	local v = rm.vector2(3, 4)
 	lu.assertTrue(approx(#v, 5.0))
 end
 
-TestVector3Operators = {}
+test_vector3_operators = {}
 
-function TestVector3Operators:testAddVecVec()
+function test_vector3_operators:test__add_vec_vec()
 	local v1 = rm.vector3(1, 2, 3)
 	local v2 = rm.vector3(4, 5, 6)
 	local result = v1 + v2
@@ -751,7 +751,7 @@ function TestVector3Operators:testAddVecVec()
 	lu.assertTrue(approx(result.z, 9.0))
 end
 
-function TestVector3Operators:testAddVecNum()
+function test_vector3_operators:test__add_vec_num()
 	local v = rm.vector3(1, 2, 3)
 	local result = v + 5
 	lu.assertTrue(approx(result.x, 6.0))
@@ -759,7 +759,7 @@ function TestVector3Operators:testAddVecNum()
 	lu.assertTrue(approx(result.z, 8.0))
 end
 
-function TestVector3Operators:testSubVecVec()
+function test_vector3_operators:test__sub_vec_vec()
 	local v1 = rm.vector3(5, 5, 5)
 	local v2 = rm.vector3(2, 3, 4)
 	local result = v1 - v2
@@ -768,7 +768,7 @@ function TestVector3Operators:testSubVecVec()
 	lu.assertTrue(approx(result.z, 1.0))
 end
 
-function TestVector3Operators:testMulVecNum()
+function test_vector3_operators:test__mul_vec_num()
 	local v = rm.vector3(1, 2, 3)
 	local result = v * 2
 	lu.assertTrue(approx(result.x, 2.0))
@@ -776,7 +776,7 @@ function TestVector3Operators:testMulVecNum()
 	lu.assertTrue(approx(result.z, 6.0))
 end
 
-function TestVector3Operators:testDivVecNum()
+function test_vector3_operators:test_div_vec_num()
 	local v = rm.vector3(2, 4, 6)
 	local result = v / 2
 	lu.assertTrue(approx(result.x, 1.0))
@@ -784,7 +784,7 @@ function TestVector3Operators:testDivVecNum()
 	lu.assertTrue(approx(result.z, 3.0))
 end
 
-function TestVector3Operators:testUnm()
+function test_vector3_operators:test_unm()
 	local v = rm.vector3(1, 2, 3)
 	local result = -v
 	lu.assertTrue(approx(result.x, -1.0))
@@ -792,26 +792,26 @@ function TestVector3Operators:testUnm()
 	lu.assertTrue(approx(result.z, -3.0))
 end
 
-function TestVector3Operators:testEqSame()
+function test_vector3_operators:test_eq_same()
 	local v1 = rm.vector3(1, 2, 3)
 	local v2 = rm.vector3(1, 2, 3)
 	lu.assertTrue(v1 == v2)
 end
 
-function TestVector3Operators:testEqDifferent()
+function test_vector3_operators:test_eq_different()
 	local v1 = rm.vector3(1, 2, 3)
 	local v2 = rm.vector3(4, 5, 6)
 	lu.assertFalse(v1 == v2)
 end
 
-function TestVector3Operators:testLen()
+function test_vector3_operators:test_len()
 	local v = rm.vector3(0, 3, 4)
 	lu.assertTrue(approx(#v, 5.0))
 end
 
-TestVector4Operators = {}
+test_vector4_operators = {}
 
-function TestVector4Operators:testAddVecVec()
+function test_vector4_operators:test__add_vec_vec()
 	local v1 = rm.vector4(1, 2, 3, 4)
 	local v2 = rm.vector4(5, 6, 7, 8)
 	local result = v1 + v2
@@ -821,7 +821,7 @@ function TestVector4Operators:testAddVecVec()
 	lu.assertTrue(approx(result.w, 12.0))
 end
 
-function TestVector4Operators:testSubVecVec()
+function test_vector4_operators:test__sub_vec_vec()
 	local v1 = rm.vector4(10, 10, 10, 10)
 	local v2 = rm.vector4(3, 4, 5, 6)
 	local result = v1 - v2
@@ -831,7 +831,7 @@ function TestVector4Operators:testSubVecVec()
 	lu.assertTrue(approx(result.w, 4.0))
 end
 
-function TestVector4Operators:testMulVecNum()
+function test_vector4_operators:test__mul_vec_num()
 	local v = rm.vector4(1, 2, 3, 4)
 	local result = v * 2
 	lu.assertTrue(approx(result.x, 2.0))
@@ -840,7 +840,7 @@ function TestVector4Operators:testMulVecNum()
 	lu.assertTrue(approx(result.w, 8.0))
 end
 
-function TestVector4Operators:testDivVecNum()
+function test_vector4_operators:test_div_vec_num()
 	local v = rm.vector4(2, 4, 6, 8)
 	local result = v / 2
 	lu.assertTrue(approx(result.x, 1.0))
@@ -849,7 +849,7 @@ function TestVector4Operators:testDivVecNum()
 	lu.assertTrue(approx(result.w, 4.0))
 end
 
-function TestVector4Operators:testUnm()
+function test_vector4_operators:test_unm()
 	local v = rm.vector4(1, 2, 3, 4)
 	local result = -v
 	lu.assertTrue(approx(result.x, -1.0))
@@ -858,42 +858,42 @@ function TestVector4Operators:testUnm()
 	lu.assertTrue(approx(result.w, -4.0))
 end
 
-function TestVector4Operators:testEqSame()
+function test_vector4_operators:test_eq_same()
 	local v1 = rm.vector4(1, 2, 3, 4)
 	local v2 = rm.vector4(1, 2, 3, 4)
 	lu.assertTrue(v1 == v2)
 end
 
-function TestVector4Operators:testLen()
+function test_vector4_operators:test_len()
 	local v = rm.vector4(1, 2, 2, 4)
 	-- sqrt(1^2 + 2^2 + 2^2 + 4^2) = sqrt(1+4+4+16) = sqrt(25) = 5
 	lu.assertTrue(approx(#v, 5.0, 0.01))
 end
 
-TestMatrixOperators = {}
+test_matrix_operators = {}
 
-function TestMatrixOperators:test_add()
+function test_matrix_operators:test__add()
 	local m1 = rm.matrix_identity()
 	local m2 = rm.matrix_identity()
 	local result = m1 + m2
 	lu.assertTrue(approx(result.m0, 2.0))
 end
 
-function TestMatrixOperators:test_sub()
+function test_matrix_operators:test__sub()
 	local m1 = rm.matrix_identity()
 	local m2 = rm.matrix_identity()
 	local result = m1 - m2
 	lu.assertTrue(approx(result.m0, 0.0))
 end
 
-function TestMatrixOperators:test_mul()
+function test_matrix_operators:test__mul()
 	local m1 = rm.matrix_identity()
 	local m2 = rm.matrix_identity()
 	local result = m1 * m2
 	lu.assertTrue(approx(result.m0, 1.0))
 end
 
-function TestMatrixOperators:test_tostring()
+function test_matrix_operators:test__tostring()
 	local m = rm.matrix_identity()
 	local s = tostring(m)
 	lu.assertStrContains(s, "Matrix[")
