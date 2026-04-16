@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := test
 
-.PHONY: test clean help install libclay vendor all setup ensure-raylib ensure-libclay
+.PHONY: test clean help install libclay vendor all setup
 
 # LuaUnit repository and file location
 LUAUNIT_REPO := https://github.com/bluebird75/luaunit.git
@@ -49,48 +49,6 @@ libclay: $(CLAY_LIB)
 setup: vendor
 	@echo "Setup complete. Vendored dependencies are present."
 
-ensure-raylib:
-	@set -e; \
-	if pkg-config --exists raylib; then \
-		echo "raylib found via pkg-config."; \
-	else \
-		echo "raylib not found. Installing..."; \
-		if command -v pacman >/dev/null 2>&1; then \
-			$(SUDO) pacman -S --needed raylib; \
-		elif command -v apt-get >/dev/null 2>&1; then \
-			$(SUDO) apt-get update; \
-			$(SUDO) apt-get install -y libraylib-dev; \
-		elif command -v dnf >/dev/null 2>&1; then \
-			$(SUDO) dnf install -y raylib-devel; \
-		elif command -v zypper >/dev/null 2>&1; then \
-			$(SUDO) zypper install -y raylib-devel; \
-		elif command -v brew >/dev/null 2>&1; then \
-			brew install raylib; \
-		else \
-			echo "No supported package manager found to install raylib." >&2; \
-			exit 1; \
-		fi; \
-		pkg-config --exists raylib || { echo "raylib install did not provide pkg-config metadata." >&2; exit 1; }; \
-		echo "raylib installed."; \
-	fi
-
-ensure-libclay:
-	@set -e; \
-	if luajit -e 'local ffi = require("ffi"); os.exit(pcall(ffi.load, "clay") and 0 or 1)'; then \
-		echo "libclay.so already available on the system."; \
-	else \
-		echo "libclay.so not found. Building and installing..."; \
-		$(MAKE) $(CLAY_LIB); \
-		if [ -n "$(DESTDIR)" ] || [ "$$(id -u)" -eq 0 ]; then \
-			install -d "$(DESTDIR)$(RAYLIB_LIB_DIR)"; \
-			install -m 755 $(CLAY_LIB) "$(DESTDIR)$(RAYLIB_LIB_DIR)/$(CLAY_LIB)"; \
-		else \
-			$(SUDO) install -d "$(RAYLIB_LIB_DIR)"; \
-			$(SUDO) install -m 755 $(CLAY_LIB) "$(RAYLIB_LIB_DIR)/$(CLAY_LIB)"; \
-		fi; \
-		echo "Installed $(CLAY_LIB) to $(DESTDIR)$(RAYLIB_LIB_DIR)."; \
-	fi
-
 vendor/:
 	@mkdir -p vendor
 
@@ -110,17 +68,20 @@ $(CLAY_LIB): clay_impl.c $(CLAY_HEADER_FILE)
 	@echo "Building $(CLAY_LIB)..."
 	@$(CC) $(CLAY_CFLAGS) $(CLAY_LDFLAGS) -o $(CLAY_LIB) clay_impl.c
 
-install: ensure-raylib ensure-libclay $(LUA_MODULES) $(CLAY_HEADER_FILE)
+install: $(CLAY_LIB) $(LUA_MODULES) $(CLAY_HEADER_FILE)
 	@echo "Installing Lua modules to $(DESTDIR)$(LUA_MODULE_DIR)..."
+	@echo "Installing $(CLAY_LIB) to $(DESTDIR)$(RAYLIB_LIB_DIR)..."
 	@echo "Installing clay.h to $(DESTDIR)$(RAYLIB_INCLUDE_DIR)..."
 	@set -e; \
 	if [ -n "$(DESTDIR)" ] || [ "$$(id -u)" -eq 0 ]; then \
-		install -d "$(DESTDIR)$(LUA_MODULE_DIR)" "$(DESTDIR)$(RAYLIB_INCLUDE_DIR)"; \
+		install -d "$(DESTDIR)$(LUA_MODULE_DIR)" "$(DESTDIR)$(RAYLIB_LIB_DIR)" "$(DESTDIR)$(RAYLIB_INCLUDE_DIR)"; \
 		install -m 644 $(LUA_MODULES) "$(DESTDIR)$(LUA_MODULE_DIR)/"; \
+		install -m 755 $(CLAY_LIB) "$(DESTDIR)$(RAYLIB_LIB_DIR)/$(CLAY_LIB)"; \
 		install -m 644 $(CLAY_HEADER_FILE) "$(DESTDIR)$(RAYLIB_INCLUDE_DIR)/clay.h"; \
 	else \
-		$(SUDO) install -d "$(LUA_MODULE_DIR)" "$(RAYLIB_INCLUDE_DIR)"; \
+		$(SUDO) install -d "$(LUA_MODULE_DIR)" "$(RAYLIB_LIB_DIR)" "$(RAYLIB_INCLUDE_DIR)"; \
 		$(SUDO) install -m 644 $(LUA_MODULES) "$(LUA_MODULE_DIR)/"; \
+		$(SUDO) install -m 755 $(CLAY_LIB) "$(RAYLIB_LIB_DIR)/$(CLAY_LIB)"; \
 		$(SUDO) install -m 644 $(CLAY_HEADER_FILE) "$(RAYLIB_INCLUDE_DIR)/clay.h"; \
 	fi
 	@echo "Install complete."
@@ -138,7 +99,7 @@ help:
 	@echo "  make vendor   - Download vendored dependencies"
 	@echo "  make libclay  - Build libclay.so only"
 	@echo "  make setup    - Download vendored dependencies"
-	@echo "  make install  - Ensure raylib is installed, build/install libclay.so if needed, then install Lua modules and clay.h"
+	@echo "  make install  - Build/install libclay.so, then install Lua modules and clay.h"
 	@echo "                 Defaults to raylib's include/lib dirs via pkg-config"
 	@echo "  make clean    - Clean up generated files"
 	@echo "  make help     - Show this help"
