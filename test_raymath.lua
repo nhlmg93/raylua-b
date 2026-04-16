@@ -15,6 +15,95 @@ local function approx(a, b)
 end
 
 -- ============================================================================
+-- Module structure and constructors
+-- ============================================================================
+test_module_structure = {}
+
+function test_module_structure:test_rm_is_table()
+	lu.assertIsTable(rm)
+end
+
+function test_module_structure:test_rm_lib_exists()
+	lu.assertNotNil(rm.lib)
+	local t = type(rm.lib)
+	lu.assertTrue(t == "cdata" or t == "userdata", "rm.lib should be cdata or userdata, got: " .. t)
+end
+
+function test_module_structure:test_constructor_functions_exist()
+	for _, name in ipairs({ "vector2", "vector3", "vector4", "matrix", "quaternion" }) do
+		lu.assertIsFunction(rm[name], "Constructor missing: " .. name)
+	end
+end
+
+test_constructors = {}
+
+function test_constructors:test_vector2_constructor_and_defaults()
+	local a = rm.vector2(3.5, 7.25)
+	lu.assertAlmostEquals(a.x, 3.5, EPS)
+	lu.assertAlmostEquals(a.y, 7.25, EPS)
+
+	local b = rm.vector2()
+	lu.assertAlmostEquals(b.x, 0, EPS)
+	lu.assertAlmostEquals(b.y, 0, EPS)
+end
+
+function test_constructors:test_vector3_constructor_and_defaults()
+	local a = rm.vector3(1, 2, 3)
+	lu.assertAlmostEquals(a.x, 1, EPS)
+	lu.assertAlmostEquals(a.y, 2, EPS)
+	lu.assertAlmostEquals(a.z, 3, EPS)
+
+	local b = rm.vector3()
+	lu.assertAlmostEquals(b.x, 0, EPS)
+	lu.assertAlmostEquals(b.y, 0, EPS)
+	lu.assertAlmostEquals(b.z, 0, EPS)
+end
+
+function test_constructors:test_vector4_constructor_and_defaults()
+	local a = rm.vector4(1, 2, 3, 4)
+	lu.assertAlmostEquals(a.x, 1, EPS)
+	lu.assertAlmostEquals(a.y, 2, EPS)
+	lu.assertAlmostEquals(a.z, 3, EPS)
+	lu.assertAlmostEquals(a.w, 4, EPS)
+
+	local b = rm.vector4()
+	lu.assertAlmostEquals(b.x, 0, EPS)
+	lu.assertAlmostEquals(b.y, 0, EPS)
+	lu.assertAlmostEquals(b.z, 0, EPS)
+	lu.assertAlmostEquals(b.w, 0, EPS)
+end
+
+function test_constructors:test_matrix_constructor_returns_identity()
+	local m = rm.matrix()
+	lu.assertAlmostEquals(m.m0, 1, EPS)
+	lu.assertAlmostEquals(m.m5, 1, EPS)
+	lu.assertAlmostEquals(m.m10, 1, EPS)
+	lu.assertAlmostEquals(m.m15, 1, EPS)
+end
+
+function test_constructors:test_quaternion_constructor_defaults_w_to_one()
+	local q = rm.quaternion()
+	lu.assertAlmostEquals(q.x, 0, EPS)
+	lu.assertAlmostEquals(q.y, 0, EPS)
+	lu.assertAlmostEquals(q.z, 0, EPS)
+	lu.assertAlmostEquals(q.w, 1, EPS)
+end
+
+test_tostring = {}
+
+function test_tostring:test_vector2()
+	lu.assertEquals(tostring(rm.vector2(1.5, 2.5)), "Vector2(1.500, 2.500)")
+end
+
+function test_tostring:test_vector3()
+	lu.assertEquals(tostring(rm.vector3(1, 2, 3)), "Vector3(1.000, 2.000, 3.000)")
+end
+
+function test_tostring:test_vector4()
+	lu.assertEquals(tostring(rm.vector4(1, 2, 3, 4)), "Vector4(1.000, 2.000, 3.000, 4.000)")
+end
+
+-- ============================================================================
 -- Raymath Scalar Functions
 -- ============================================================================
 test_raymath_scalar = {}

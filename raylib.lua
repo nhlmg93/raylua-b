@@ -791,7 +791,6 @@ local function findHeader(name)
 	local paths = {
 		"/usr/include/" .. name,
 		"/usr/local/include/" .. name,
-		"/opt/homebrew/include/" .. name,
 		name,
 	}
 	for _, path in ipairs(paths) do

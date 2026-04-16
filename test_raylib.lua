@@ -33,9 +33,6 @@ end
 function test_module_structure:test_constructor_functions_exist()
 	local constructors = {
 		"Color",
-		"Vector2",
-		"Vector3",
-		"Vector4",
 		"Rectangle",
 		"Camera3D",
 		"Camera2D",
@@ -190,48 +187,6 @@ function test_constructors:test__color_hex_number_transparent()
 	lu.assertEquals(c.a, 128)
 end
 
-function test_constructors:test_vector2()
-	local v = rl.vector2(3.5, 7.25)
-	lu.assertAlmostEquals(v.x, 3.5, EPS)
-	lu.assertAlmostEquals(v.y, 7.25, EPS)
-end
-
-function test_constructors:test__vector2_defaults()
-	local v = rl.vector2()
-	lu.assertAlmostEquals(v.x, 0, EPS)
-	lu.assertAlmostEquals(v.y, 0, EPS)
-end
-
-function test_constructors:test_vector3()
-	local v = rl.vector3(1.0, 2.0, 3.0)
-	lu.assertAlmostEquals(v.x, 1.0, EPS)
-	lu.assertAlmostEquals(v.y, 2.0, EPS)
-	lu.assertAlmostEquals(v.z, 3.0, EPS)
-end
-
-function test_constructors:test__vector3_defaults()
-	local v = rl.vector3()
-	lu.assertAlmostEquals(v.x, 0, EPS)
-	lu.assertAlmostEquals(v.y, 0, EPS)
-	lu.assertAlmostEquals(v.z, 0, EPS)
-end
-
-function test_constructors:test_vector4()
-	local v = rl.vector4(1.0, 2.0, 3.0, 4.0)
-	lu.assertAlmostEquals(v.x, 1.0, EPS)
-	lu.assertAlmostEquals(v.y, 2.0, EPS)
-	lu.assertAlmostEquals(v.z, 3.0, EPS)
-	lu.assertAlmostEquals(v.w, 4.0, EPS)
-end
-
-function test_constructors:test__vector4_defaults()
-	local v = rl.vector4()
-	lu.assertAlmostEquals(v.x, 0, EPS)
-	lu.assertAlmostEquals(v.y, 0, EPS)
-	lu.assertAlmostEquals(v.z, 0, EPS)
-	lu.assertAlmostEquals(v.w, 0, EPS)
-end
-
 function test_constructors:test_rectangle()
 	local r = rl.rectangle(10.0, 20.0, 100.0, 50.0)
 	lu.assertAlmostEquals(r.x, 10.0, EPS)
@@ -259,7 +214,7 @@ function test_constructors:test_camera2_d_defaults()
 end
 
 function test_constructors:test_camera2_d_custom()
-	local cam = rl.camera_2d(rl.vector2(400, 300), rl.vector2(100, 200), 45.0, 2.0)
+	local cam = rl.camera_2d(rm.vector2(400, 300), rm.vector2(100, 200), 45.0, 2.0)
 	lu.assertAlmostEquals(cam.offset.x, 400, EPS)
 	lu.assertAlmostEquals(cam.offset.y, 300, EPS)
 	lu.assertAlmostEquals(cam.target.x, 100, EPS)
@@ -269,8 +224,8 @@ function test_constructors:test_camera2_d_custom()
 end
 
 function test_constructors:test_camera3_d_defaults()
-	local pos = rl.vector3(10, 10, 10)
-	local target = rl.vector3(0, 0, 0)
+	local pos = rm.vector3(10, 10, 10)
+	local target = rm.vector3(0, 0, 0)
 	local cam = rl.camera_3d(pos, target)
 	lu.assertAlmostEquals(cam.position.x, 10, EPS)
 	lu.assertAlmostEquals(cam.up.y, 1.0, EPS)
@@ -279,20 +234,20 @@ function test_constructors:test_camera3_d_defaults()
 end
 
 function test_constructors:test_camera3_d_custom()
-	local cam = rl.camera_3d(rl.vector3(5, 5, 5), rl.vector3(0, 1, 0), rl.vector3(0, 0, 1), 60.0, 1)
+	local cam = rl.camera_3d(rm.vector3(5, 5, 5), rm.vector3(0, 1, 0), rm.vector3(0, 0, 1), 60.0, 1)
 	lu.assertAlmostEquals(cam.up.z, 1, EPS)
 	lu.assertAlmostEquals(cam.fovy, 60.0, EPS)
 	lu.assertEquals(cam.projection, 1)
 end
 
 function test_constructors:test_ray()
-	local r = rl.ray(rl.vector3(0, 0, 0), rl.vector3(1, 0, 0))
+	local r = rl.ray(rm.vector3(0, 0, 0), rm.vector3(1, 0, 0))
 	lu.assertAlmostEquals(r.position.x, 0, EPS)
 	lu.assertAlmostEquals(r.direction.x, 1, EPS)
 end
 
 function test_constructors:test_bounding_box()
-	local bb = rl.bounding_box(rl.vector3(-1, -1, -1), rl.vector3(1, 1, 1))
+	local bb = rl.bounding_box(rm.vector3(-1, -1, -1), rm.vector3(1, 1, 1))
 	lu.assertAlmostEquals(bb.min.x, -1, EPS)
 	lu.assertAlmostEquals(bb.max.x, 1, EPS)
 end
@@ -546,15 +501,6 @@ end
 
 test_tostring = {}
 
-function test_tostring:test__vector2()
-	lu.assertEquals(tostring(rl.vector2(1.5, 2.5)), "Vector2(1.500, 2.500)")
-end
-function test_tostring:test__vector3()
-	lu.assertEquals(tostring(rl.vector3(1, 2, 3)), "Vector3(1.000, 2.000, 3.000)")
-end
-function test_tostring:test__vector4()
-	lu.assertEquals(tostring(rl.vector4(1, 2, 3, 4)), "Vector4(1.000, 2.000, 3.000, 4.000)")
-end
 function test_tostring:test__color()
 	lu.assertEquals(tostring(rl.color(255, 0, 128, 255)), "Color(255, 0, 128, 255)")
 end
@@ -585,10 +531,10 @@ function test_utilities:test__ref_float()
 	lu.assertTrue(approx(ptr[0], 3.14))
 end
 function test_utilities:test__istype_true()
-	lu.assertTrue(rl.istype("Vector2", rl.vector2(1, 2)))
+	lu.assertTrue(rl.istype("Vector2", rm.vector2(1, 2)))
 end
 function test_utilities:test__istype_false()
-	lu.assertFalse(rl.istype("Vector3", rl.vector2(1, 2)))
+	lu.assertFalse(rl.istype("Vector3", rm.vector2(1, 2)))
 end
 function test_utilities:test__sizeof_vector2()
 	lu.assertEquals(rl.sizeof("Vector2"), 8)
@@ -647,28 +593,28 @@ function test_collision2_d:test_check_collision_recs_no_overlap()
 	lu.assertFalse(rl.check_collision_recs(rl.rectangle(0, 0, 10, 10), rl.rectangle(20, 20, 10, 10)))
 end
 function test_collision2_d:test_check_collision_circles_overlap()
-	lu.assertTrue(rl.check_collision_circles(rl.vector2(0, 0), 5, rl.vector2(3, 0), 5))
+	lu.assertTrue(rl.check_collision_circles(rm.vector2(0, 0), 5, rm.vector2(3, 0), 5))
 end
 function test_collision2_d:test_check_collision_circles_no_overlap()
-	lu.assertFalse(rl.check_collision_circles(rl.vector2(0, 0), 5, rl.vector2(100, 0), 5))
+	lu.assertFalse(rl.check_collision_circles(rm.vector2(0, 0), 5, rm.vector2(100, 0), 5))
 end
 function test_collision2_d:test_check_collision_circle_rec_overlap()
-	lu.assertTrue(rl.check_collision_circle_rec(rl.vector2(5, 5), 5, rl.rectangle(0, 0, 10, 10)))
+	lu.assertTrue(rl.check_collision_circle_rec(rm.vector2(5, 5), 5, rl.rectangle(0, 0, 10, 10)))
 end
 function test_collision2_d:test_check_collision_circle_rec_no_overlap()
-	lu.assertFalse(rl.check_collision_circle_rec(rl.vector2(50, 50), 1, rl.rectangle(0, 0, 10, 10)))
+	lu.assertFalse(rl.check_collision_circle_rec(rm.vector2(50, 50), 1, rl.rectangle(0, 0, 10, 10)))
 end
 function test_collision2_d:test_check_collision_point_rec_inside()
-	lu.assertTrue(rl.check_collision_point_rec(rl.vector2(5, 5), rl.rectangle(0, 0, 10, 10)))
+	lu.assertTrue(rl.check_collision_point_rec(rm.vector2(5, 5), rl.rectangle(0, 0, 10, 10)))
 end
 function test_collision2_d:test_check_collision_point_rec_outside()
-	lu.assertFalse(rl.check_collision_point_rec(rl.vector2(50, 50), rl.rectangle(0, 0, 10, 10)))
+	lu.assertFalse(rl.check_collision_point_rec(rm.vector2(50, 50), rl.rectangle(0, 0, 10, 10)))
 end
 function test_collision2_d:test_check_collision_point_circle_inside()
-	lu.assertTrue(rl.check_collision_point_circle(rl.vector2(1, 1), rl.vector2(0, 0), 5))
+	lu.assertTrue(rl.check_collision_point_circle(rm.vector2(1, 1), rm.vector2(0, 0), 5))
 end
 function test_collision2_d:test_check_collision_point_circle_outside()
-	lu.assertFalse(rl.check_collision_point_circle(rl.vector2(100, 100), rl.vector2(0, 0), 5))
+	lu.assertFalse(rl.check_collision_point_circle(rm.vector2(100, 100), rm.vector2(0, 0), 5))
 end
 function test_collision2_d:test_get_collision_rec()
 	local col = rl.get_collision_rec(rl.rectangle(0, 0, 10, 10), rl.rectangle(5, 5, 10, 10))
@@ -679,12 +625,12 @@ function test_collision2_d:test_get_collision_rec()
 end
 function test_collision2_d:test_check_collision_point_triangle_inside()
 	lu.assertTrue(
-		rl.check_collision_point_triangle(rl.vector2(1, 1), rl.vector2(0, 0), rl.vector2(10, 0), rl.vector2(0, 10))
+		rl.check_collision_point_triangle(rm.vector2(1, 1), rm.vector2(0, 0), rm.vector2(10, 0), rm.vector2(0, 10))
 	)
 end
 function test_collision2_d:test_check_collision_point_triangle_outside()
 	lu.assertFalse(
-		rl.check_collision_point_triangle(rl.vector2(50, 50), rl.vector2(0, 0), rl.vector2(10, 0), rl.vector2(0, 10))
+		rl.check_collision_point_triangle(rm.vector2(50, 50), rm.vector2(0, 0), rm.vector2(10, 0), rm.vector2(0, 10))
 	)
 end
 
@@ -694,38 +640,38 @@ end
 test_collision3_d = {}
 
 function test_collision3_d:test_check_collision_spheres_overlap()
-	lu.assertTrue(rl.check_collision_spheres(rl.vector3(0, 0, 0), 5, rl.vector3(3, 0, 0), 5))
+	lu.assertTrue(rl.check_collision_spheres(rm.vector3(0, 0, 0), 5, rm.vector3(3, 0, 0), 5))
 end
 function test_collision3_d:test_check_collision_spheres_no_overlap()
-	lu.assertFalse(rl.check_collision_spheres(rl.vector3(0, 0, 0), 5, rl.vector3(100, 0, 0), 5))
+	lu.assertFalse(rl.check_collision_spheres(rm.vector3(0, 0, 0), 5, rm.vector3(100, 0, 0), 5))
 end
 function test_collision3_d:test_check_collision_boxes_overlap()
-	local b1 = rl.bounding_box(rl.vector3(0, 0, 0), rl.vector3(10, 10, 10))
-	local b2 = rl.bounding_box(rl.vector3(5, 5, 5), rl.vector3(15, 15, 15))
+	local b1 = rl.bounding_box(rm.vector3(0, 0, 0), rm.vector3(10, 10, 10))
+	local b2 = rl.bounding_box(rm.vector3(5, 5, 5), rm.vector3(15, 15, 15))
 	lu.assertTrue(rl.check_collision_boxes(b1, b2))
 end
 function test_collision3_d:test_check_collision_boxes_no_overlap()
-	local b1 = rl.bounding_box(rl.vector3(0, 0, 0), rl.vector3(10, 10, 10))
-	local b2 = rl.bounding_box(rl.vector3(50, 50, 50), rl.vector3(60, 60, 60))
+	local b1 = rl.bounding_box(rm.vector3(0, 0, 0), rm.vector3(10, 10, 10))
+	local b2 = rl.bounding_box(rm.vector3(50, 50, 50), rm.vector3(60, 60, 60))
 	lu.assertFalse(rl.check_collision_boxes(b1, b2))
 end
 function test_collision3_d:test_check_collision_box_sphere_overlap()
-	local box = rl.bounding_box(rl.vector3(0, 0, 0), rl.vector3(10, 10, 10))
-	lu.assertTrue(rl.check_collision_box_sphere(box, rl.vector3(5, 5, 5), 5))
+	local box = rl.bounding_box(rm.vector3(0, 0, 0), rm.vector3(10, 10, 10))
+	lu.assertTrue(rl.check_collision_box_sphere(box, rm.vector3(5, 5, 5), 5))
 end
 function test_collision3_d:test_get_ray_collision_sphere_hit()
-	local ray = rl.ray(rl.vector3(0, 0, 0), rl.vector3(1, 0, 0))
-	local result = rl.get_ray_collision_sphere(ray, rl.vector3(10, 0, 0), 5)
+	local ray = rl.ray(rm.vector3(0, 0, 0), rm.vector3(1, 0, 0))
+	local result = rl.get_ray_collision_sphere(ray, rm.vector3(10, 0, 0), 5)
 	lu.assertTrue(result.hit)
 end
 function test_collision3_d:test_get_ray_collision_sphere_miss()
-	local ray = rl.ray(rl.vector3(0, 0, 0), rl.vector3(1, 0, 0))
-	local result = rl.get_ray_collision_sphere(ray, rl.vector3(0, 100, 0), 1)
+	local ray = rl.ray(rm.vector3(0, 0, 0), rm.vector3(1, 0, 0))
+	local result = rl.get_ray_collision_sphere(ray, rm.vector3(0, 100, 0), 1)
 	lu.assertFalse(result.hit)
 end
 function test_collision3_d:test_get_ray_collision_box_hit()
-	local ray = rl.ray(rl.vector3(0, 0, 0), rl.vector3(1, 0, 0))
-	local box = rl.bounding_box(rl.vector3(5, -5, -5), rl.vector3(15, 5, 5))
+	local ray = rl.ray(rm.vector3(0, 0, 0), rm.vector3(1, 0, 0))
+	local box = rl.bounding_box(rm.vector3(5, -5, -5), rm.vector3(15, 5, 5))
 	lu.assertTrue(rl.get_ray_collision_box(ray, box).hit)
 end
 
@@ -949,13 +895,16 @@ function test_snake_case_conversion:test_window_functions()
 	lu.assertNotNil(rl.is_file_extension, "is_file_extension should resolve")
 end
 
-function test_snake_case_conversion:test_vector_functions()
-	-- Vector constructor functions (lowercase)
-	lu.assertIsFunction(rl.vector2, "vector2 constructor should exist")
-	lu.assertIsFunction(rl.vector3, "vector3 constructor should exist")
-	lu.assertIsFunction(rl.vector4, "vector4 constructor should exist")
-	-- Test they create valid vectors
-	local v = rl.vector2(1, 2)
+function test_snake_case_conversion:test_vector_functions_live_in_raymath()
+	-- Vector helpers belong to raymath, not raylib.
+	lu.assertNil(rl.vector2)
+	lu.assertNil(rl.vector3)
+	lu.assertNil(rl.vector4)
+	lu.assertIsFunction(rm.vector2)
+	lu.assertIsFunction(rm.vector3)
+	lu.assertIsFunction(rm.vector4)
+
+	local v = rm.vector2(1, 2)
 	lu.assertNotNil(v)
 	lu.assertEquals(v.x, 1)
 	lu.assertEquals(v.y, 2)
@@ -1045,9 +994,6 @@ end
 function test_snake_case_conversion:test_constructors_still_work()
 	-- Constructors should remain CamelCase and still work
 	lu.assertIsFunction(rl.Color)
-	lu.assertIsFunction(rl.Vector2)
-	lu.assertIsFunction(rl.Vector3)
-	lu.assertIsFunction(rl.Vector4)
 	lu.assertIsFunction(rl.Rectangle)
 	lu.assertIsFunction(rl.Camera3D)
 	lu.assertIsFunction(rl.Camera2D)

@@ -29,12 +29,14 @@ rl.close_window()
 
 - `raylib.lua` - Main FFI bindings for raylib
 - `raymath.lua` - Math utilities
+- `clay.lua` - FFI bindings for Clay UI
 - `test_*.lua` - Test suites
 
 ## Testing
 
 ```bash
-make test  # Run all tests
+make test           # Run all tests
+luajit test_clay.lua  # Run clay tests only
 ```
 
 ## License
