@@ -880,41 +880,6 @@ rl.RAYWHITE = ffi.new("Color", 245, 245, 245, 255)
 -- TYPE DEFINITIONS (for LSP)
 -- ============================================================================
 
----@class Vector2
----@field x number
----@field y number
-
----@class Vector3
----@field x number
----@field y number
----@field z number
-
----@class Vector4
----@field x number
----@field y number
----@field z number
----@field w number
-
----@alias Quaternion Vector4
-
----@class Matrix
----@field m0 number
----@field m4 number
----@field m8 number
----@field m12 number
----@field m1 number
----@field m5 number
----@field m9 number
----@field m13 number
----@field m2 number
----@field m6 number
----@field m10 number
----@field m14 number
----@field m3 number
----@field m7 number
----@field m11 number
----@field m15 number
-
 ---@class Color
 ---@field r integer
 ---@field g integer
@@ -1153,33 +1118,6 @@ function rl.color(r, g, b, a)
 	end
 end
 
----Create a Vector2
----@param x? number
----@param y? number
----@return Vector2
-function rl.vector2(x, y)
-	return ffi.new("Vector2", x or 0, y or 0)
-end
-
----Create a Vector3
----@param x? number
----@param y? number
----@param z? number
----@return Vector3
-function rl.vector3(x, y, z)
-	return ffi.new("Vector3", x or 0, y or 0, z or 0)
-end
-
----Create a Vector4
----@param x? number
----@param y? number
----@param z? number
----@param w? number
----@return Vector4
-function rl.vector4(x, y, z, w)
-	return ffi.new("Vector4", x or 0, y or 0, z or 0, w or 0)
-end
-
 ---Create a Rectangle
 ---@param x? number
 ---@param y? number
@@ -1198,7 +1136,7 @@ end
 ---@param projection? integer
 ---@return Camera3D
 function rl.camera_3d(position, target, up, fovy, projection)
-	return ffi.new("Camera3D", position, target, up or rl.vector3(0, 1, 0), fovy or 45, projection or 0)
+	return ffi.new("Camera3D", position, target, up or ffi.new("Vector3", 0, 1, 0), fovy or 45, projection or 0)
 end
 
 ---Create a Camera2D
@@ -1208,7 +1146,7 @@ end
 ---@param zoom? number
 ---@return Camera2D
 function rl.camera_2d(offset, target, rotation, zoom)
-	return ffi.new("Camera2D", offset or rl.vector2(0, 0), target or rl.vector2(0, 0), rotation or 0, zoom or 1)
+	return ffi.new("Camera2D", offset or ffi.new("Vector2", 0, 0), target or ffi.new("Vector2", 0, 0), rotation or 0, zoom or 1)
 end
 
 ---Create a Ray
@@ -1229,9 +1167,6 @@ end
 
 -- CamelCase aliases for constructors (matching FFI convention)
 rl.Color = rl.color
-rl.Vector2 = rl.vector2
-rl.Vector3 = rl.vector3
-rl.Vector4 = rl.vector4
 rl.Rectangle = rl.rectangle
 rl.Camera3D = rl.camera_3d
 rl.Camera2D = rl.camera_2d
