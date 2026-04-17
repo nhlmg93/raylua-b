@@ -478,6 +478,7 @@ local ffi = require("ffi")
 ---
 --- Color/pixel functions
 ---
+---@field color fun(r: number|string, g?: number, b?: number, a?: number): Color Create a Color from RGBA values, hex string, or hex number
 ---@field color_is_equal fun(col1: Color, col2: Color): boolean Check if two colors are equal
 ---@field fade fun(color: Color, alpha: number): Color Get color with alpha applied, alpha goes from 0.0f to 1.0f
 ---@field color_to_int fun(color: Color): integer Get hexadecimal value for a Color (0xRRGGBBAA)
