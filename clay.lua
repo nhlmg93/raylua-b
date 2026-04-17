@@ -1,4 +1,4 @@
----@module "vendor.clay"
+---@meta
 
 local ffi = require("ffi")
 
