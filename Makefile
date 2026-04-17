@@ -26,7 +26,7 @@ SUDO ?= $(shell if [ "$$(id -u)" -eq 0 ]; then printf ''; else printf 'sudo'; fi
 RAYLIB_INCLUDE_DIR ?= $(shell pkg-config --variable=includedir raylib 2>/dev/null || printf '%s\n' /usr/local/include)
 RAYLIB_LIB_DIR ?= $(shell pkg-config --variable=libdir raylib 2>/dev/null || printf '%s\n' /usr/local/lib)
 LUA_MODULE_DIR ?= $(shell luajit -e 'for p in string.gmatch(package.path, "[^;]+") do local d = p:match("^(.*)/%?%.lua$$") or p:match("^(.*)/%?/init%.lua$$"); if d and d:sub(1,1) == "/" then print(d); os.exit(0) end end' 2>/dev/null || printf '%s\n' /usr/local/share/lua/5.1)
-LUA_MODULES := raylib.lua raymath.lua clay.lua
+LUA_MODULES := raylib.lua raymath.lua clay.lua hot_reload.lua
 
 # Default command: fetch test deps and run all tests
 all: test
@@ -40,6 +40,9 @@ test: $(LUAUNIT_FILE)
 	@echo ""
 	@echo "Running clay tests..."
 	@luajit test_clay.lua
+	@echo ""
+	@echo "Running hot_reload tests..."
+	@luajit test_hot_reload.lua
 	@echo ""
 	@echo "All tests passed!"
 
@@ -93,10 +96,10 @@ clean:
 # Help
 help:
 	@echo "Available commands:"
-	@echo "  make          - Run all tests"
+	@echo "  make          - Run all tests (raylib, raymath, clay, hot_reload)"
 	@echo "  make test     - Run all tests"
 	@echo "  make all      - Run all tests"
-	@echo "  make vendor   - Download vendored dependencies"
+	@echo "  make vendor   - Download vendored dependencies (luaunit, clay.h)"
 	@echo "  make libclay  - Build libclay.so only"
 	@echo "  make setup    - Download vendored dependencies"
 	@echo "  make install  - Build/install libclay.so, then install Lua modules and clay.h"

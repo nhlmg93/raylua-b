@@ -30,6 +30,7 @@ rl.close_window()
 - `raylib.lua` - Main FFI bindings for raylib
 - `raymath.lua` - Math utilities
 - `clay.lua` - FFI bindings for Clay UI
+- `hot_reload.lua` - Generic Lua module hot reloading utility
 - `test_*.lua` - Test suites
 
 ## Testing
